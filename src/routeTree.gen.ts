@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as BrowseRouteImport } from './routes/browse'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -41,6 +42,11 @@ import { Route as AuthenticatedAdminTitlesIdRouteImport } from './routes/_authen
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -189,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/browse': typeof BrowseRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
   '/watchlist': typeof AuthenticatedWatchlistRoute
@@ -217,6 +224,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/browse': typeof BrowseRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
   '/watchlist': typeof AuthenticatedWatchlistRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/browse': typeof BrowseRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/account': typeof AuthenticatedAccountRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/browse'
     | '/pricing'
+    | '/reset-password'
     | '/search'
     | '/account'
     | '/watchlist'
@@ -305,6 +315,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/browse'
     | '/pricing'
+    | '/reset-password'
     | '/search'
     | '/account'
     | '/watchlist'
@@ -333,6 +344,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/browse'
     | '/pricing'
+    | '/reset-password'
     | '/search'
     | '/_authenticated/admin'
     | '/_authenticated/account'
@@ -364,6 +376,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BrowseRoute: typeof BrowseRouteWithChildren
   PricingRoute: typeof PricingRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SearchRoute: typeof SearchRoute
   TitleSlugRoute: typeof TitleSlugRoute
   WatchSlugRoute: typeof WatchSlugRoute
@@ -377,6 +390,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -656,6 +676,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BrowseRoute: BrowseRouteWithChildren,
   PricingRoute: PricingRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SearchRoute: SearchRoute,
   TitleSlugRoute: TitleSlugRoute,
   WatchSlugRoute: WatchSlugRoute,
