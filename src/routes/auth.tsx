@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Shell } from "@/components/sf/shell";
 
 export const Route = createFileRoute("/auth")({
+  ssr: false,
   head: () => ({ meta: [{ title: "Sign in — StreamFlix" }, { name: "description", content: "Sign in or create an account on StreamFlix." }] }),
   component: AuthPage,
   errorComponent: ({ error }) => <Shell><div className="p-12">{error.message}</div></Shell>,
