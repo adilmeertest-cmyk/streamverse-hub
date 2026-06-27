@@ -12,7 +12,6 @@ export interface Title {
   age_rating: string | null;
   poster_url: string | null;
   backdrop_url: string | null;
-  video_url: string | null;
   is_premium: boolean;
   is_coming_soon: boolean;
   is_featured: boolean;

@@ -2,7 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Banner, Category, Title, TitleKind } from "./types";
 
 const TITLE_FIELDS =
-  "id,slug,kind,title,tagline,synopsis,release_year,runtime_minutes,age_rating,poster_url,backdrop_url,video_url,is_premium,is_coming_soon,is_featured,is_trending,cast_list,directors";
+  "id,slug,kind,title,tagline,synopsis,release_year,runtime_minutes,age_rating,poster_url,backdrop_url,is_premium,is_coming_soon,is_featured,is_trending,cast_list,directors";
 
 export async function fetchBanners(): Promise<Banner[]> {
   const { data, error } = await supabase
@@ -81,13 +81,20 @@ export async function fetchTitleBySlug(slug: string): Promise<Title | null> {
 export async function searchTitles(q: string, limit = 30): Promise<Title[]> {
   const term = q.trim();
   if (!term) return [];
-  // Use ilike across multiple text fields for fuzzy-feeling search.
+  // Sanitize: strip PostgREST filter special chars to prevent filter-clause injection.
+  const safe = term.replace(/[,()*\\%"']/g, " ").trim().slice(0, 80);
+  if (!safe) return [];
+  const pattern = `%${safe}%`;
   const { data, error } = await supabase
     .from("titles")
     .select(TITLE_FIELDS)
     .eq("is_published", true)
     .or(
-      `title.ilike.%${term}%,tagline.ilike.%${term}%,synopsis.ilike.%${term}%`,
+      [
+        `title.ilike.${pattern}`,
+        `tagline.ilike.${pattern}`,
+        `synopsis.ilike.${pattern}`,
+      ].join(","),
     )
     .limit(limit);
   if (error) throw error;

@@ -65,13 +65,13 @@ function TitlePage() {
             {t.tagline && <p className="mt-2 text-lg text-muted-foreground italic">{t.tagline}</p>}
             <p className="mt-4 text-base text-foreground/90 max-w-2xl">{t.synopsis}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              {t.video_url ? (
+              {!t.is_coming_soon ? (
                 <Link to="/watch/$slug" params={{ slug: t.slug }} className="inline-flex items-center gap-2 rounded-md bg-white px-6 py-2.5 font-bold text-black hover:bg-white/90">
                   <Play className="h-4 w-4 fill-current" /> Play
                 </Link>
               ) : (
                 <button disabled className="inline-flex items-center gap-2 rounded-md bg-muted px-6 py-2.5 font-bold text-muted-foreground">
-                  {t.is_coming_soon ? "Coming soon" : "Unavailable"}
+                  Coming soon
                 </button>
               )}
               <button className="inline-flex items-center gap-2 rounded-md bg-secondary px-5 py-2.5 font-semibold text-secondary-foreground hover:bg-secondary/80">
