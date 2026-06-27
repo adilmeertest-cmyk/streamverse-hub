@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Shell } from "@/components/sf/shell";
@@ -23,11 +23,14 @@ function AuthPage() {
   const [err, setErr] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const search = useRouterState({ select: (s) => s.location.search as { mode?: string; verified?: string } });
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) navigate({ to: "/" });
     });
+    if (search?.verified === "1") setInfo("Email verified. You can sign in now.");
+    if (search?.mode === "signup") setMode("signup");
   }, [navigate]);
 
   const reset = () => { setErr(null); setInfo(null); };
@@ -43,28 +46,30 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
             data: { display_name: name },
           },
         });
         if (error) throw error;
-        // Auto sign-in (succeeds when email confirmation is OFF in Supabase Auth settings)
-        const { error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
-        if (signInErr) {
-          setInfo("Account created. Check your email to verify, then sign in.");
-          setMode("signin");
-          return;
-        }
-        navigate({ to: "/" });
+        setInfo("Account created. Check your email for a verification link, then sign in.");
+        setMode("signin");
+        setPassword("");
+        setConfirmPassword("");
+        return;
       } else if (mode === "forgot") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/reset-password`,
+          redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
         });
         if (error) throw error;
         setInfo("Password reset link sent. Check your email.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        if (error) {
+          if (error.message.toLowerCase().includes("email not confirmed")) {
+            throw new Error("Please verify your email before signing in. Check your inbox for the verification link.");
+          }
+          throw error;
+        }
         navigate({ to: "/" });
       }
     } catch (e: any) {
