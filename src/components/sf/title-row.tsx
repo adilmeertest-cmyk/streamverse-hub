@@ -2,10 +2,11 @@ import type { Title } from "@/lib/types";
 import { TitleCard } from "./title-card";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export function TitleRow({ heading, titles }: { heading: string; titles: Title[] }) {
+export function TitleRow({ heading, titles, loading }: { heading: string; titles: Title[]; loading?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
-  if (!titles?.length) return null;
+  if (!loading && !titles?.length) return null;
   const scroll = (dir: number) => ref.current?.scrollBy({ left: dir * 600, behavior: "smooth" });
   return (
     <section className="px-4 md:px-8 mt-10">
@@ -17,7 +18,14 @@ export function TitleRow({ heading, titles }: { heading: string; titles: Title[]
           aria-label="Scroll left"
         ><ChevronLeft /></button>
         <div ref={ref} className="sf-row flex gap-3 overflow-x-auto scroll-smooth pb-2">
-          {titles.map((t) => <TitleCard key={t.id} t={t} />)}
+          {loading
+            ? Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="w-[160px] sm:w-[180px] md:w-[200px] shrink-0">
+                  <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                  <Skeleton className="mt-2 h-4 w-3/4" />
+                </div>
+              ))
+            : titles.map((t) => <TitleCard key={t.id} t={t} />)}
         </div>
         <button
           onClick={() => scroll(1)}

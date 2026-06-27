@@ -2,6 +2,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Search, Bell, User, LogOut, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { InstallAppButton } from "./install-app-button";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -71,6 +72,7 @@ export function Header() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-3">
+          <InstallAppButton className="hidden sm:inline-flex" />
           <Link to="/search" className="p-2 rounded-md hover:bg-secondary text-muted-foreground hover:text-foreground">
             <Search className="h-5 w-5" />
           </Link>
