@@ -5,6 +5,8 @@ import { VideoPlayer } from "@/components/sf/video-player";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { getWatchUrl } from "@/lib/playback.functions";
 
 const opts = (slug: string) => queryOptions({ queryKey: ["title", slug], queryFn: () => fetchTitleBySlug(slug) });
 
@@ -29,33 +31,40 @@ function WatchPage() {
   const { slug } = Route.useParams();
   const t = useSuspenseQuery(opts(slug)).data!;
   const [userId, setUserId] = useState<string | null>(null);
-  const [blocked, setBlocked] = useState(false);
-  const [blockReason, setBlockReason] = useState<"signin" | "subscribe" | null>(null);
+  const [status, setStatus] = useState<
+    | { kind: "loading" }
+    | { kind: "signin" }
+    | { kind: "subscribe" }
+    | { kind: "unavailable" }
+    | { kind: "ready"; url: string; poster: string | null }
+  >({ kind: "loading" });
+  const fetchUrl = useServerFn(getWatchUrl);
 
   useEffect(() => {
     (async () => {
       const { data } = await supabase.auth.getUser();
       setUserId(data.user?.id ?? null);
-      if (!data.user) {
-        if (t.is_premium) { setBlocked(true); setBlockReason("signin"); }
-        return;
-      }
-      if (t.is_premium) {
-        const { data: subs } = await supabase
-          .from("subscriptions")
-          .select("status, subscription_plans(tier)")
-          .eq("user_id", data.user.id)
-          .in("status", ["active", "trialing"]);
-        const active = subs?.some((s) => {
-          const tier = (s.subscription_plans as { tier?: string } | null)?.tier;
-          return tier === "premium" || tier === "family";
-        });
-        if (!active) { setBlocked(true); setBlockReason("subscribe"); }
+      if (!data.user) { setStatus({ kind: "signin" }); return; }
+      try {
+        const res = await fetchUrl({ data: { titleId: t.id } });
+        if (res.ok) {
+          setStatus({ kind: "ready", url: res.url, poster: res.poster });
+        } else if (res.reason === "subscribe") {
+          setStatus({ kind: "subscribe" });
+        } else {
+          setStatus({ kind: "unavailable" });
+        }
+      } catch {
+        setStatus({ kind: "unavailable" });
       }
     })();
-  }, [t.is_premium]);
+  }, [t.id, fetchUrl]);
 
-  if (!t.video_url) {
+  if (status.kind === "loading") {
+    return <div className="min-h-screen bg-black text-white flex items-center justify-center">Loading…</div>;
+  }
+
+  if (status.kind === "unavailable") {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-8 text-center">
         <div>
@@ -66,14 +75,14 @@ function WatchPage() {
     );
   }
 
-  if (blocked) {
+  if (status.kind === "signin" || status.kind === "subscribe") {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-8 text-center">
         <div className="max-w-md">
-          <div className="text-2xl font-bold">Premium title</div>
-          <p className="mt-2 text-white/70">{blockReason === "signin" ? "Sign in and subscribe" : "Upgrade to Premium or Family"} to watch <strong>{t.title}</strong>.</p>
+          <div className="text-2xl font-bold">{status.kind === "signin" ? "Sign in to watch" : "Premium title"}</div>
+          <p className="mt-2 text-white/70">{status.kind === "signin" ? "Sign in to your account" : "Upgrade to Premium or Family"} to watch <strong>{t.title}</strong>.</p>
           <div className="mt-4 flex justify-center gap-3">
-            {blockReason === "signin" && <Link to="/auth" className="rounded-md bg-primary px-4 py-2 font-semibold">Sign in</Link>}
+            {status.kind === "signin" && <Link to="/auth" className="rounded-md bg-primary px-4 py-2 font-semibold">Sign in</Link>}
             <Link to="/pricing" className="rounded-md bg-primary px-4 py-2 font-semibold">See plans</Link>
           </div>
         </div>
@@ -102,7 +111,7 @@ function WatchPage() {
         </Link>
       </div>
       <div className="h-screen w-screen">
-        <VideoPlayer src={t.video_url} poster={t.backdrop_url} onProgress={onProgress} />
+        <VideoPlayer src={status.url} poster={status.poster ?? t.backdrop_url} onProgress={onProgress} />
       </div>
     </div>
   );
