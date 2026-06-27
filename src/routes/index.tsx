@@ -39,24 +39,24 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const { data: banners = [] } = useQuery(bannersOpts);
-  const { data: trending = [] } = useQuery(trendingOpts);
-  const { data: movies = [] } = useQuery(moviesOpts);
-  const { data: series = [] } = useQuery(seriesOpts);
-  const { data: dramas = [] } = useQuery(dramasOpts);
-  const { data: cartoons = [] } = useQuery(cartoonsOpts);
-  const { data: docs = [] } = useQuery(docsOpts);
-  const { data: coming = [] } = useQuery(comingOpts);
+  const trending = useQuery(trendingOpts);
+  const movies = useQuery(moviesOpts);
+  const series = useQuery(seriesOpts);
+  const dramas = useQuery(dramasOpts);
+  const cartoons = useQuery(cartoonsOpts);
+  const docs = useQuery(docsOpts);
+  const coming = useQuery(comingOpts);
   return (
     <Shell transparentHeader>
       <Hero banners={banners} />
       <div className="mx-auto max-w-[1480px]">
-        <TitleRow heading="Trending now" titles={trending} />
-        <TitleRow heading="Movies" titles={movies} />
-        <TitleRow heading="Series" titles={series} />
-        <TitleRow heading="Dramas" titles={dramas} />
-        <TitleRow heading="Kids & Cartoons" titles={cartoons} />
-        <TitleRow heading="Documentaries" titles={docs} />
-        <TitleRow heading="Coming soon" titles={coming} />
+        <TitleRow heading="Trending now" titles={trending.data ?? []} loading={trending.isLoading} />
+        <TitleRow heading="Movies" titles={movies.data ?? []} loading={movies.isLoading} />
+        <TitleRow heading="Series" titles={series.data ?? []} loading={series.isLoading} />
+        <TitleRow heading="Dramas" titles={dramas.data ?? []} loading={dramas.isLoading} />
+        <TitleRow heading="Kids & Cartoons" titles={cartoons.data ?? []} loading={cartoons.isLoading} />
+        <TitleRow heading="Documentaries" titles={docs.data ?? []} loading={docs.isLoading} />
+        <TitleRow heading="Coming soon" titles={coming.data ?? []} loading={coming.isLoading} />
       </div>
     </Shell>
   );

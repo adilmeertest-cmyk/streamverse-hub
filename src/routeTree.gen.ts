@@ -24,6 +24,7 @@ import { Route as BrowseMoviesRouteImport } from './routes/browse.movies'
 import { Route as BrowseDramasRouteImport } from './routes/browse.dramas'
 import { Route as BrowseDocumentariesRouteImport } from './routes/browse.documentaries'
 import { Route as BrowseCartoonsRouteImport } from './routes/browse.cartoons'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedWatchlistRouteImport } from './routes/_authenticated/watchlist'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
@@ -113,6 +114,11 @@ const BrowseCartoonsRoute = BrowseCartoonsRouteImport.update({
   path: '/cartoons',
   getParentRoute: () => BrowseRoute,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthenticatedWatchlistRoute = AuthenticatedWatchlistRouteImport.update({
   id: '/watchlist',
   path: '/watchlist',
@@ -192,13 +198,14 @@ const AuthenticatedAdminTitlesIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/browse': typeof BrowseRouteWithChildren
   '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
   '/watchlist': typeof AuthenticatedWatchlistRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/browse/cartoons': typeof BrowseCartoonsRoute
   '/browse/documentaries': typeof BrowseDocumentariesRoute
   '/browse/dramas': typeof BrowseDramasRoute
@@ -221,13 +228,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/browse': typeof BrowseRouteWithChildren
   '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
   '/watchlist': typeof AuthenticatedWatchlistRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/browse/cartoons': typeof BrowseCartoonsRoute
   '/browse/documentaries': typeof BrowseDocumentariesRoute
   '/browse/dramas': typeof BrowseDramasRoute
@@ -251,7 +259,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/admin': typeof AdminRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/browse': typeof BrowseRouteWithChildren
   '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -259,6 +267,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/watchlist': typeof AuthenticatedWatchlistRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/browse/cartoons': typeof BrowseCartoonsRoute
   '/browse/documentaries': typeof BrowseDocumentariesRoute
   '/browse/dramas': typeof BrowseDramasRoute
@@ -290,6 +299,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/account'
     | '/watchlist'
+    | '/auth/callback'
     | '/browse/cartoons'
     | '/browse/documentaries'
     | '/browse/dramas'
@@ -319,6 +329,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/account'
     | '/watchlist'
+    | '/auth/callback'
     | '/browse/cartoons'
     | '/browse/documentaries'
     | '/browse/dramas'
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/account'
     | '/_authenticated/watchlist'
+    | '/auth/callback'
     | '/browse/cartoons'
     | '/browse/documentaries'
     | '/browse/dramas'
@@ -373,7 +385,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AdminRoute: typeof AdminRoute
-  AuthRoute: typeof AuthRoute
+  AuthRoute: typeof AuthRouteWithChildren
   BrowseRoute: typeof BrowseRouteWithChildren
   PricingRoute: typeof PricingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -489,6 +501,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/browse/cartoons'
       preLoaderRoute: typeof BrowseCartoonsRouteImport
       parentRoute: typeof BrowseRoute
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/_authenticated/watchlist': {
       id: '/_authenticated/watchlist'
@@ -650,6 +669,16 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AuthRouteChildren {
+  AuthCallbackRoute: typeof AuthCallbackRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthCallbackRoute: AuthCallbackRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 interface BrowseRouteChildren {
   BrowseCartoonsRoute: typeof BrowseCartoonsRoute
   BrowseDocumentariesRoute: typeof BrowseDocumentariesRoute
@@ -673,7 +702,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AdminRoute: AdminRoute,
-  AuthRoute: AuthRoute,
+  AuthRoute: AuthRouteWithChildren,
   BrowseRoute: BrowseRouteWithChildren,
   PricingRoute: PricingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
