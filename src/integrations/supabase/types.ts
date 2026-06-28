@@ -181,6 +181,57 @@ export type Database = {
         }
         Relationships: []
       }
+      downloads: {
+        Row: {
+          checksum: string | null
+          created_at: string
+          downloads_count: number
+          filename: string
+          filesize: number | null
+          id: string
+          is_active: boolean
+          platform: Database["public"]["Enums"]["download_platform"]
+          release_date: string
+          release_notes: string | null
+          storage_path: string | null
+          updated_at: string
+          url: string
+          version: string
+        }
+        Insert: {
+          checksum?: string | null
+          created_at?: string
+          downloads_count?: number
+          filename: string
+          filesize?: number | null
+          id?: string
+          is_active?: boolean
+          platform: Database["public"]["Enums"]["download_platform"]
+          release_date?: string
+          release_notes?: string | null
+          storage_path?: string | null
+          updated_at?: string
+          url: string
+          version: string
+        }
+        Update: {
+          checksum?: string | null
+          created_at?: string
+          downloads_count?: number
+          filename?: string
+          filesize?: number | null
+          id?: string
+          is_active?: boolean
+          platform?: Database["public"]["Enums"]["download_platform"]
+          release_date?: string
+          release_notes?: string | null
+          storage_path?: string | null
+          updated_at?: string
+          url?: string
+          version?: string
+        }
+        Relationships: []
+      }
       episodes: {
         Row: {
           air_date: string | null
@@ -789,6 +840,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_download_count: { Args: { _id: string }; Returns: undefined }
       recompute_title_rating: {
         Args: { _title_id: string }
         Returns: undefined
@@ -803,6 +855,14 @@ export type Database = {
         | "support_agent"
         | "analytics_manager"
         | "user"
+      download_platform:
+        | "windows"
+        | "macos"
+        | "linux"
+        | "android"
+        | "ios"
+        | "android_tv"
+        | "smart_tv"
       plan_interval: "monthly" | "yearly"
       plan_tier: "basic" | "standard" | "premium" | "family"
       review_state: "draft" | "pending" | "approved" | "published" | "rejected"
@@ -948,6 +1008,15 @@ export const Constants = {
         "support_agent",
         "analytics_manager",
         "user",
+      ],
+      download_platform: [
+        "windows",
+        "macos",
+        "linux",
+        "android",
+        "ios",
+        "android_tv",
+        "smart_tv",
       ],
       plan_interval: ["monthly", "yearly"],
       plan_tier: ["basic", "standard", "premium", "family"],

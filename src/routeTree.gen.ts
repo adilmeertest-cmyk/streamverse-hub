@@ -37,8 +37,10 @@ import { Route as AuthenticatedAdminTaxonomyRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminSyncRouteImport } from './routes/_authenticated/admin/sync'
 import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin/reviews'
 import { Route as AuthenticatedAdminPlansRouteImport } from './routes/_authenticated/admin/plans'
+import { Route as AuthenticatedAdminDownloadsRouteImport } from './routes/_authenticated/admin/downloads'
 import { Route as AuthenticatedAdminBannersRouteImport } from './routes/_authenticated/admin/banners'
 import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin/audit'
+import { Route as ApiPublicDownloadIdRouteImport } from './routes/api/public/download.$id'
 import { Route as AuthenticatedAdminTitlesIdRouteImport } from './routes/_authenticated/admin/titles.$id'
 
 const SearchRoute = SearchRouteImport.update({
@@ -183,6 +185,12 @@ const AuthenticatedAdminPlansRoute = AuthenticatedAdminPlansRouteImport.update({
   path: '/plans',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminDownloadsRoute =
+  AuthenticatedAdminDownloadsRouteImport.update({
+    id: '/downloads',
+    path: '/downloads',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminBannersRoute =
   AuthenticatedAdminBannersRouteImport.update({
     id: '/banners',
@@ -193,6 +201,11 @@ const AuthenticatedAdminAuditRoute = AuthenticatedAdminAuditRouteImport.update({
   id: '/audit',
   path: '/audit',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const ApiPublicDownloadIdRoute = ApiPublicDownloadIdRouteImport.update({
+  id: '/api/public/download/$id',
+  path: '/api/public/download/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminTitlesIdRoute =
   AuthenticatedAdminTitlesIdRouteImport.update({
@@ -222,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/watch/$slug': typeof WatchSlugRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
   '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
@@ -231,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -253,6 +268,7 @@ export interface FileRoutesByTo {
   '/watch/$slug': typeof WatchSlugRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
   '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
@@ -261,6 +277,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -286,6 +303,7 @@ export interface FileRoutesById {
   '/watch/$slug': typeof WatchSlugRoute
   '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/_authenticated/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
   '/_authenticated/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/admin/sync': typeof AuthenticatedAdminSyncRoute
@@ -295,6 +313,7 @@ export interface FileRoutesById {
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -319,6 +338,7 @@ export interface FileRouteTypes {
     | '/watch/$slug'
     | '/admin/audit'
     | '/admin/banners'
+    | '/admin/downloads'
     | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
@@ -328,6 +348,7 @@ export interface FileRouteTypes {
     | '/api/public/stripe-webhook'
     | '/admin/'
     | '/admin/titles/$id'
+    | '/api/public/download/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -350,6 +371,7 @@ export interface FileRouteTypes {
     | '/watch/$slug'
     | '/admin/audit'
     | '/admin/banners'
+    | '/admin/downloads'
     | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
@@ -358,6 +380,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/public/stripe-webhook'
     | '/admin/titles/$id'
+    | '/api/public/download/$id'
   id:
     | '__root__'
     | '/'
@@ -382,6 +405,7 @@ export interface FileRouteTypes {
     | '/watch/$slug'
     | '/_authenticated/admin/audit'
     | '/_authenticated/admin/banners'
+    | '/_authenticated/admin/downloads'
     | '/_authenticated/admin/plans'
     | '/_authenticated/admin/reviews'
     | '/_authenticated/admin/sync'
@@ -391,6 +415,7 @@ export interface FileRouteTypes {
     | '/api/public/stripe-webhook'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/titles/$id'
+    | '/api/public/download/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -406,6 +431,7 @@ export interface RootRouteChildren {
   TitleSlugRoute: typeof TitleSlugRoute
   WatchSlugRoute: typeof WatchSlugRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicDownloadIdRoute: typeof ApiPublicDownloadIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -606,6 +632,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPlansRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/downloads': {
+      id: '/_authenticated/admin/downloads'
+      path: '/downloads'
+      fullPath: '/admin/downloads'
+      preLoaderRoute: typeof AuthenticatedAdminDownloadsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/banners': {
       id: '/_authenticated/admin/banners'
       path: '/banners'
@@ -619,6 +652,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/audit'
       preLoaderRoute: typeof AuthenticatedAdminAuditRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/api/public/download/$id': {
+      id: '/api/public/download/$id'
+      path: '/api/public/download/$id'
+      fullPath: '/api/public/download/$id'
+      preLoaderRoute: typeof ApiPublicDownloadIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/titles/$id': {
       id: '/_authenticated/admin/titles/$id'
@@ -647,6 +687,7 @@ const AuthenticatedAdminTitlesRouteWithChildren =
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
   AuthenticatedAdminBannersRoute: typeof AuthenticatedAdminBannersRoute
+  AuthenticatedAdminDownloadsRoute: typeof AuthenticatedAdminDownloadsRoute
   AuthenticatedAdminPlansRoute: typeof AuthenticatedAdminPlansRoute
   AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
   AuthenticatedAdminSyncRoute: typeof AuthenticatedAdminSyncRoute
@@ -660,6 +701,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
     AuthenticatedAdminBannersRoute: AuthenticatedAdminBannersRoute,
+    AuthenticatedAdminDownloadsRoute: AuthenticatedAdminDownloadsRoute,
     AuthenticatedAdminPlansRoute: AuthenticatedAdminPlansRoute,
     AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
     AuthenticatedAdminSyncRoute: AuthenticatedAdminSyncRoute,
@@ -731,6 +773,7 @@ const rootRouteChildren: RootRouteChildren = {
   TitleSlugRoute: TitleSlugRoute,
   WatchSlugRoute: WatchSlugRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicDownloadIdRoute: ApiPublicDownloadIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

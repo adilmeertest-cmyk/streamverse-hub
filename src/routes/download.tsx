@@ -3,6 +3,9 @@ import { Shell } from "@/components/sf/shell";
 import { Download, Apple, Monitor, Smartphone, HelpCircle, CheckCircle2, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReactNode } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
+import { listLatestDownloads, type DownloadPlatform } from "@/lib/downloads.functions";
 
 export const Route = createFileRoute("/download")({
   head: () => ({
@@ -18,63 +21,95 @@ export const Route = createFileRoute("/download")({
   component: DownloadPage,
 });
 
-const PLATFORMS = [
+const PLATFORMS: PlatformDef[] = [
   {
     id: "windows",
     name: "Windows",
-    badge: "v1.0.0",
-    size: "85 MB",
     icon: WindowsIcon,
-    file: "StreamFlix-Setup.exe",
-    href: "#download-windows",
+    defaultFile: "StreamFlix-Setup.exe",
     color: "from-blue-500/20 to-cyan-500/10",
     accent: "text-blue-400",
   },
   {
     id: "macos",
     name: "macOS",
-    badge: "v1.0.0",
-    size: "92 MB",
     icon: AppleIcon,
-    file: "StreamFlix.dmg",
-    href: "#download-macos",
+    defaultFile: "StreamFlix.dmg",
     color: "from-gray-200/20 to-gray-400/10",
     accent: "text-gray-300",
   },
   {
     id: "linux",
     name: "Linux",
-    badge: "v1.0.0",
-    size: "78 MB",
     icon: LinuxIcon,
-    file: "StreamFlix.AppImage",
-    href: "#download-linux",
+    defaultFile: "StreamFlix.AppImage",
     color: "from-yellow-500/15 to-orange-500/10",
     accent: "text-yellow-400",
   },
   {
     id: "android",
     name: "Android",
-    badge: "v1.0.0",
-    size: "42 MB",
     icon: AndroidIcon,
-    file: "streamflix.apk",
-    href: "#download-android",
+    defaultFile: "streamflix.apk",
     color: "from-green-500/20 to-emerald-500/10",
     accent: "text-green-400",
   },
   {
     id: "ios",
     name: "iPhone & iPad",
-    badge: "v1.0.0",
-    size: "App Store",
     icon: AppleIcon,
-    file: "StreamFlix on the App Store",
-    href: "#download-ios",
+    defaultFile: "StreamFlix on the App Store",
     color: "from-primary/20 to-accent/10",
     accent: "text-primary",
   },
+  {
+    id: "android_tv",
+    name: "Android TV",
+    icon: AndroidIcon,
+    defaultFile: "streamflix-tv.apk",
+    color: "from-green-500/15 to-cyan-500/10",
+    accent: "text-green-400",
+  },
+  {
+    id: "smart_tv",
+    name: "Smart TV",
+    icon: WindowsIcon,
+    defaultFile: "streamflix-smarttv.apk",
+    color: "from-purple-500/15 to-pink-500/10",
+    accent: "text-purple-400",
+  },
 ];
+
+type PlatformDef = {
+  id: DownloadPlatform;
+  name: string;
+  icon: () => ReactNode;
+  defaultFile: string;
+  color: string;
+  accent: string;
+};
+
+type DbRow = {
+  id: string;
+  platform: DownloadPlatform;
+  version: string;
+  filename: string;
+  filesize: number | null;
+  url: string;
+  checksum: string | null;
+  release_date: string;
+  release_notes: string | null;
+  downloads_count: number;
+};
+
+function fmtBytes(n: number | null | undefined) {
+  if (!n) return null;
+  const units = ["B", "KB", "MB", "GB"];
+  let v = n;
+  let i = 0;
+  while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
+  return `${v.toFixed(v < 10 ? 1 : 0)} ${units[i]}`;
+}
 
 const REQUIREMENTS = [
   { label: "OS", value: "Windows 10+, macOS 12+, Ubuntu 20.04+, Android 8+, iOS 15+" },
@@ -85,6 +120,13 @@ const REQUIREMENTS = [
 ];
 
 function DownloadPage() {
+  const fn = useServerFn(listLatestDownloads);
+  const { data: latest } = useQuery({
+    queryKey: ["public-downloads"],
+    queryFn: () => fn() as unknown as Promise<DbRow[]>,
+  });
+  const byPlatform = new Map<string, DbRow>((latest ?? []).map((r) => [r.platform, r]));
+
   return (
     <Shell>
       <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
@@ -102,8 +144,8 @@ function DownloadPage() {
         </header>
 
         <section className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PLATFORMS.map((platform) => (
-            <DownloadCard key={platform.id} {...platform} />
+          {PLATFORMS.map((p) => (
+            <DownloadCard key={p.id} def={p} row={byPlatform.get(p.id)} />
           ))}
         </section>
 
@@ -190,52 +232,49 @@ function DownloadPage() {
   );
 }
 
-function DownloadCard({
-  name,
-  badge,
-  size,
-  icon: Icon,
-  file,
-  href,
-  color,
-  accent,
-}: {
-  name: string;
-  badge: string;
-  size: string;
-  icon: () => ReactNode;
-  file: string;
-  href: string;
-  color: string;
-  accent: string;
-}) {
+function DownloadCard({ def, row }: { def: PlatformDef; row?: DbRow }) {
+  const Icon = def.icon;
+  const available = !!row;
+  const href = row ? `/api/public/download/${row.id}` : undefined;
+  const filename = row?.filename ?? def.defaultFile;
+  const version = row ? `v${row.version}` : "Coming soon";
+  const size = fmtBytes(row?.filesize) ?? (def.id === "ios" ? "App Store" : "—");
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card/60 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
-      <div
-        className={`absolute inset-0 -z-10 bg-gradient-to-br ${color} opacity-0 transition duration-300 group-hover:opacity-100`}
-      />
+      <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${def.color} opacity-0 transition duration-300 group-hover:opacity-100`} />
       <div className="flex items-center gap-4">
-        <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-background/80 text-foreground ${accent}`}>
+        <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-background/80 text-foreground ${def.accent}`}>
           <Icon />
         </div>
         <div className="min-w-0">
-          <h3 className="text-lg font-bold">{name}</h3>
+          <h3 className="text-lg font-bold">{def.name}</h3>
           <div className="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
-            <span className="rounded-full bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">
-              {badge}
-            </span>
+            <span className="rounded-full bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">{version}</span>
             <span>{size}</span>
           </div>
         </div>
       </div>
-      <p className="mt-4 text-sm text-muted-foreground">{file}</p>
+      <p className="mt-4 text-sm text-muted-foreground truncate" title={filename}>{filename}</p>
+      {row?.downloads_count ? (
+        <p className="mt-1 text-xs text-muted-foreground">{row.downloads_count.toLocaleString()} downloads</p>
+      ) : null}
       <div className="mt-auto pt-5">
-        <Button className="w-full gap-2 font-semibold transition-transform group-active:scale-[0.98]" asChild>
-          <a href={href} aria-label={`Download StreamFlix for ${name}`}>
-            <Download className="h-4 w-4" />
-            Download
-          </a>
-        </Button>
+        {available ? (
+          <Button className="w-full gap-2 font-semibold transition-transform group-active:scale-[0.98]" asChild>
+            <a
+              href={href}
+              aria-label={`Download StreamFlix for ${def.name}`}
+              {...(def.id === "ios" ? { target: "_blank", rel: "noopener noreferrer" } : { download: filename })}
+            >
+              <Download className="h-4 w-4" />
+              {def.id === "ios" ? "Open App Store" : "Download"}
+            </a>
+          </Button>
+        ) : (
+          <Button className="w-full gap-2 font-semibold" disabled variant="secondary">
+            <Download className="h-4 w-4" /> Coming soon
+          </Button>
+        )}
       </div>
     </div>
   );
