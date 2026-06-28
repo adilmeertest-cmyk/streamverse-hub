@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/public/download/$id")({
   server: {
@@ -28,7 +28,4 @@ export const Route = createFileRoute("/api/public/download/$id")({
       },
     },
   },
-  notFoundComponent: () => null as never,
 });
-
-void notFound;
