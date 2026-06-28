@@ -37,6 +37,7 @@ import { Route as AuthenticatedAdminTaxonomyRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminSyncRouteImport } from './routes/_authenticated/admin/sync'
 import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin/reviews'
 import { Route as AuthenticatedAdminPlansRouteImport } from './routes/_authenticated/admin/plans'
+import { Route as AuthenticatedAdminDownloadsRouteImport } from './routes/_authenticated/admin/downloads'
 import { Route as AuthenticatedAdminBannersRouteImport } from './routes/_authenticated/admin/banners'
 import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin/audit'
 import { Route as ApiPublicDownloadIdRouteImport } from './routes/api/public/download.$id'
@@ -184,6 +185,12 @@ const AuthenticatedAdminPlansRoute = AuthenticatedAdminPlansRouteImport.update({
   path: '/plans',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminDownloadsRoute =
+  AuthenticatedAdminDownloadsRouteImport.update({
+    id: '/downloads',
+    path: '/downloads',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminBannersRoute =
   AuthenticatedAdminBannersRouteImport.update({
     id: '/banners',
@@ -228,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/watch/$slug': typeof WatchSlugRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
   '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
@@ -260,6 +268,7 @@ export interface FileRoutesByTo {
   '/watch/$slug': typeof WatchSlugRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
   '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
@@ -294,6 +303,7 @@ export interface FileRoutesById {
   '/watch/$slug': typeof WatchSlugRoute
   '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/_authenticated/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
   '/_authenticated/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/admin/sync': typeof AuthenticatedAdminSyncRoute
@@ -328,6 +338,7 @@ export interface FileRouteTypes {
     | '/watch/$slug'
     | '/admin/audit'
     | '/admin/banners'
+    | '/admin/downloads'
     | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/watch/$slug'
     | '/admin/audit'
     | '/admin/banners'
+    | '/admin/downloads'
     | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
@@ -393,6 +405,7 @@ export interface FileRouteTypes {
     | '/watch/$slug'
     | '/_authenticated/admin/audit'
     | '/_authenticated/admin/banners'
+    | '/_authenticated/admin/downloads'
     | '/_authenticated/admin/plans'
     | '/_authenticated/admin/reviews'
     | '/_authenticated/admin/sync'
@@ -619,6 +632,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPlansRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/downloads': {
+      id: '/_authenticated/admin/downloads'
+      path: '/downloads'
+      fullPath: '/admin/downloads'
+      preLoaderRoute: typeof AuthenticatedAdminDownloadsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/banners': {
       id: '/_authenticated/admin/banners'
       path: '/banners'
@@ -667,6 +687,7 @@ const AuthenticatedAdminTitlesRouteWithChildren =
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
   AuthenticatedAdminBannersRoute: typeof AuthenticatedAdminBannersRoute
+  AuthenticatedAdminDownloadsRoute: typeof AuthenticatedAdminDownloadsRoute
   AuthenticatedAdminPlansRoute: typeof AuthenticatedAdminPlansRoute
   AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
   AuthenticatedAdminSyncRoute: typeof AuthenticatedAdminSyncRoute
@@ -680,6 +701,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
     AuthenticatedAdminBannersRoute: AuthenticatedAdminBannersRoute,
+    AuthenticatedAdminDownloadsRoute: AuthenticatedAdminDownloadsRoute,
     AuthenticatedAdminPlansRoute: AuthenticatedAdminPlansRoute,
     AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
     AuthenticatedAdminSyncRoute: AuthenticatedAdminSyncRoute,
