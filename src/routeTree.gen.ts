@@ -39,6 +39,7 @@ import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminPlansRouteImport } from './routes/_authenticated/admin/plans'
 import { Route as AuthenticatedAdminBannersRouteImport } from './routes/_authenticated/admin/banners'
 import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin/audit'
+import { Route as ApiPublicDownloadIdRouteImport } from './routes/api/public/download.$id'
 import { Route as AuthenticatedAdminTitlesIdRouteImport } from './routes/_authenticated/admin/titles.$id'
 
 const SearchRoute = SearchRouteImport.update({
@@ -194,6 +195,11 @@ const AuthenticatedAdminAuditRoute = AuthenticatedAdminAuditRouteImport.update({
   path: '/audit',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const ApiPublicDownloadIdRoute = ApiPublicDownloadIdRouteImport.update({
+  id: '/api/public/download/$id',
+  path: '/api/public/download/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminTitlesIdRoute =
   AuthenticatedAdminTitlesIdRouteImport.update({
     id: '/$id',
@@ -231,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -261,6 +268,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -295,6 +303,7 @@ export interface FileRoutesById {
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -328,6 +337,7 @@ export interface FileRouteTypes {
     | '/api/public/stripe-webhook'
     | '/admin/'
     | '/admin/titles/$id'
+    | '/api/public/download/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -358,6 +368,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/public/stripe-webhook'
     | '/admin/titles/$id'
+    | '/api/public/download/$id'
   id:
     | '__root__'
     | '/'
@@ -391,6 +402,7 @@ export interface FileRouteTypes {
     | '/api/public/stripe-webhook'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/titles/$id'
+    | '/api/public/download/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -406,6 +418,7 @@ export interface RootRouteChildren {
   TitleSlugRoute: typeof TitleSlugRoute
   WatchSlugRoute: typeof WatchSlugRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicDownloadIdRoute: typeof ApiPublicDownloadIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -620,6 +633,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAuditRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/api/public/download/$id': {
+      id: '/api/public/download/$id'
+      path: '/api/public/download/$id'
+      fullPath: '/api/public/download/$id'
+      preLoaderRoute: typeof ApiPublicDownloadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/titles/$id': {
       id: '/_authenticated/admin/titles/$id'
       path: '/$id'
@@ -731,6 +751,7 @@ const rootRouteChildren: RootRouteChildren = {
   TitleSlugRoute: TitleSlugRoute,
   WatchSlugRoute: WatchSlugRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicDownloadIdRoute: ApiPublicDownloadIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

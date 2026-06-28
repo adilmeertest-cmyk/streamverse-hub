@@ -1,5 +1,5 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Film, Tags, Image as ImageIcon, MessageSquare, Users, CreditCard, ScrollText, ArrowLeft, RefreshCw } from "lucide-react";
+import { LayoutDashboard, Film, Tags, Image as ImageIcon, MessageSquare, Users, CreditCard, ScrollText, ArrowLeft, RefreshCw, Download } from "lucide-react";
 import type { ReactNode } from "react";
 
 const NAV = [
@@ -11,6 +11,7 @@ const NAV = [
   { to: "/admin/users", label: "Users & Roles", icon: Users },
   { to: "/admin/plans", label: "Plans", icon: CreditCard },
   { to: "/admin/sync", label: "Content Sync", icon: RefreshCw },
+  { to: "/admin/downloads", label: "App Downloads", icon: Download },
   { to: "/admin/audit", label: "Audit log", icon: ScrollText },
 ];
 
