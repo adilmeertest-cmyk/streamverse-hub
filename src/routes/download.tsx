@@ -232,52 +232,49 @@ function DownloadPage() {
   );
 }
 
-function DownloadCard({
-  name,
-  badge,
-  size,
-  icon: Icon,
-  file,
-  href,
-  color,
-  accent,
-}: {
-  name: string;
-  badge: string;
-  size: string;
-  icon: () => ReactNode;
-  file: string;
-  href: string;
-  color: string;
-  accent: string;
-}) {
+function DownloadCard({ def, row }: { def: PlatformDef; row?: DbRow }) {
+  const Icon = def.icon;
+  const available = !!row;
+  const href = row ? `/api/public/download/${row.id}` : undefined;
+  const filename = row?.filename ?? def.defaultFile;
+  const version = row ? `v${row.version}` : "Coming soon";
+  const size = fmtBytes(row?.filesize) ?? (def.id === "ios" ? "App Store" : "—");
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card/60 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
-      <div
-        className={`absolute inset-0 -z-10 bg-gradient-to-br ${color} opacity-0 transition duration-300 group-hover:opacity-100`}
-      />
+      <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${def.color} opacity-0 transition duration-300 group-hover:opacity-100`} />
       <div className="flex items-center gap-4">
-        <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-background/80 text-foreground ${accent}`}>
+        <div className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-background/80 text-foreground ${def.accent}`}>
           <Icon />
         </div>
         <div className="min-w-0">
-          <h3 className="text-lg font-bold">{name}</h3>
+          <h3 className="text-lg font-bold">{def.name}</h3>
           <div className="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
-            <span className="rounded-full bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">
-              {badge}
-            </span>
+            <span className="rounded-full bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">{version}</span>
             <span>{size}</span>
           </div>
         </div>
       </div>
-      <p className="mt-4 text-sm text-muted-foreground">{file}</p>
+      <p className="mt-4 text-sm text-muted-foreground truncate" title={filename}>{filename}</p>
+      {row?.downloads_count ? (
+        <p className="mt-1 text-xs text-muted-foreground">{row.downloads_count.toLocaleString()} downloads</p>
+      ) : null}
       <div className="mt-auto pt-5">
-        <Button className="w-full gap-2 font-semibold transition-transform group-active:scale-[0.98]" asChild>
-          <a href={href} aria-label={`Download StreamFlix for ${name}`}>
-            <Download className="h-4 w-4" />
-            Download
-          </a>
-        </Button>
+        {available ? (
+          <Button className="w-full gap-2 font-semibold transition-transform group-active:scale-[0.98]" asChild>
+            <a
+              href={href}
+              aria-label={`Download StreamFlix for ${def.name}`}
+              {...(def.id === "ios" ? { target: "_blank", rel: "noopener noreferrer" } : { download: filename })}
+            >
+              <Download className="h-4 w-4" />
+              {def.id === "ios" ? "Open App Store" : "Download"}
+            </a>
+          </Button>
+        ) : (
+          <Button className="w-full gap-2 font-semibold" disabled variant="secondary">
+            <Download className="h-4 w-4" /> Coming soon
+          </Button>
+        )}
       </div>
     </div>
   );
