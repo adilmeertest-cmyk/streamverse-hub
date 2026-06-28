@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/public/download/$id")({
   server: {
-    handlers: {
+    handlers: ({ createHandlers }) => createHandlers({
       GET: async ({ params }) => {
+        console.log("[download-api] hit", params);
         const id = params.id;
         if (!/^[0-9a-f-]{36}$/i.test(id)) return new Response("Not found", { status: 404 });
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -14,7 +15,6 @@ export const Route = createFileRoute("/api/public/download/$id")({
           .maybeSingle();
         if (error || !row || !row.is_active) return new Response("Not found", { status: 404 });
 
-        // Fire-and-forget counter
         await supabaseAdmin.rpc("increment_download_count", { _id: id });
 
         let target = row.url;
@@ -26,6 +26,6 @@ export const Route = createFileRoute("/api/public/download/$id")({
         }
         return Response.redirect(target, 302);
       },
-    },
+    }),
   },
 });
