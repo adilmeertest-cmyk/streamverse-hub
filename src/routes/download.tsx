@@ -3,11 +3,9 @@ import { Shell } from "@/components/sf/shell";
 import { Download, Apple, Monitor, Smartphone, HelpCircle, CheckCircle2, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { ReactNode } from "react";
-=======
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { listLatestDownloads, type DownloadPlatform } from "@/lib/downloads.functions";
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 
 export const Route = createFileRoute("/download")({
   head: () => ({
@@ -107,7 +105,6 @@ function DownloadPage() {
         </header>
 
         <section className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-<<<<<<< HEAD
           {PLATFORMS.map((platform) => (
             <DownloadCard key={platform.id} {...platform} />
           ))}
