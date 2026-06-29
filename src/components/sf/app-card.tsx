@@ -32,10 +32,10 @@ export function AppCard({ app, platforms }: { app: Pick<App, "id" | "slug" | "na
             <span className="rounded-full bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">
               v{app.version}
             </span>
-            {app.rating > 0 && (
+            {(app.rating ?? 0) > 0 && (
               <span className="flex items-center gap-1">
                 <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                {app.rating.toFixed(1)}
+                {(app.rating ?? 0).toFixed(1)}
               </span>
             )}
             <span>{app.download_count.toLocaleString()} downloads</span>

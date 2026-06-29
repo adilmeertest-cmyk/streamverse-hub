@@ -67,10 +67,11 @@ function Page() {
 
 export const Route = createFileRoute("/browse/apps")({
   head: () => ({ meta: [{ title: "Apps — StreamFlix" }, { name: "description", content: "Browse and download apps on StreamFlix." }] }),
-  loader: ({ context, search }) => {
+  loaderDeps: ({ search }) => ({ platform: search.platform }),
+  loader: ({ context, deps }) => {
     const opts = queryOptions({
-      queryKey: ["apps", search.platform],
-      queryFn: () => fetchApps(search.platform as AppPlatform | undefined),
+      queryKey: ["apps", deps.platform],
+      queryFn: () => fetchApps(deps.platform as AppPlatform | undefined),
     });
     return context.queryClient.ensureQueryData(opts);
   },
