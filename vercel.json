@@ -7,15 +7,15 @@
   "regions": ["iad1"],
 
   "env": {
-    "STRIPE_SECRET_KEY": "@stripe_secret_key",
-    "STRIPE_WEBHOOK_SECRET": "@stripe_webhook_secret",
-    "SUPABASE_PROJECT_ID": "@supabase_project_id",
-    "SUPABASE_PUBLISHABLE_KEY": "@supabase_publishable_key",
-    "SUPABASE_URL": "@supabase_url",
-    "VITE_SUPABASE_PROJECT_ID": "@vite_supabase_project_id",
-    "VITE_SUPABASE_PUBLISHABLE_KEY": "@vite_supabase_publishable_key",
-    "VITE_SUPABASE_URL": "@vite_supabase_url",
-    "VITE_TMDB_API_KEY": "@vite_tmdb_api_key"
+    "STRIPE_SECRET_KEY": "YOUR_STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET": "YOUR_WEBHOOK_SECRET",
+    "SUPABASE_PROJECT_ID": "YOUR_SUPABASE_PROJECT_ID",
+    "SUPABASE_PUBLISHABLE_KEY": "YOUR_SUPABASE_PUBLISHABLE_KEY",
+    "SUPABASE_URL": "YOUR_SUPABASE_URL",
+    "VITE_SUPABASE_PROJECT_ID": "YOUR_SUPABASE_PROJECT_ID",
+    "VITE_SUPABASE_PUBLISHABLE_KEY": "YOUR_SUPABASE_PUBLISHABLE_KEY",
+    "VITE_SUPABASE_URL": "YOUR_SUPABASE_URL",
+    "VITE_TMDB_API_KEY": "YOUR_TMDB_API_KEY"
   },
 
   "headers": [
