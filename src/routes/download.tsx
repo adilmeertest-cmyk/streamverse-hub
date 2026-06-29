@@ -23,7 +23,6 @@ export const Route = createFileRoute("/download")({
   component: DownloadPage,
 });
 
-<<<<<<< HEAD
 const PLATFORMS = [
   {
     id: "windows",
@@ -91,15 +90,6 @@ const REQUIREMENTS = [
 ];
 
 function DownloadPage() {
-=======
-  const fn = useServerFn(listLatestDownloads);
-  const { data: latest } = useQuery({
-    queryKey: ["public-downloads"],
-    queryFn: () => fn() as unknown as Promise<DbRow[]>,
-  });
-  const byPlatform = new Map<string, DbRow>((latest ?? []).map((r) => [r.platform, r]));
-
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   return (
     <Shell>
       <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">

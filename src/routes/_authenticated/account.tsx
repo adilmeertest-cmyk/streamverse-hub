@@ -58,7 +58,6 @@ import { Button } from "@/components/ui/button";
               <Link to="/watchlist" className="rounded-md bg-secondary px-4 py-2 text-sm font-semibold">My list</Link>
             </div>
           </div>
-<<<<<<< HEAD
           <div className="rounded-lg border border-border bg-card p-5">
             <div className="font-semibold flex items-center gap-2">
               <Download className="h-4 w-4" />
@@ -91,8 +90,6 @@ import { Button } from "@/components/ui/button";
               Browse apps <ExternalLink className="h-3 w-3" />
             </Link>
           </div>
-=======
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
           <button onClick={signOut} className="w-full rounded-md bg-destructive px-4 py-2.5 font-semibold text-destructive-foreground">Sign out</button>
         </div>
       </div>
