@@ -53,6 +53,12 @@ function AuthPage() {
         // Generate device fingerprint
         const deviceFingerprint = await generateDeviceFingerprint();
 
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+            data: { full_name: name, device_fingerprint: deviceFingerprint },
           },
         });
         if (error) throw error;
@@ -84,7 +90,33 @@ function AuthPage() {
             device_fingerprint: deviceFingerprint 
           }).eq("id", user.id);
         }
-        
+
+        navigate({ to: "/" });
+        return;
+      }
+    } catch (e: any) {
+      setErr(e?.message ?? "Something went wrong");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleGoogle = async () => {
+    reset();
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}/auth/callback` },
+      });
+      if (error) throw error;
+    } catch (e: any) {
+      setErr(e?.message ?? "Google sign-in failed");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md rounded-xl border border-border bg-card/40 p-6">
         <div className="flex rounded-md border border-border bg-card p-1 text-sm font-semibold">
           <button type="button" onClick={() => { setMode("signin"); reset(); }} className={`flex-1 rounded-sm py-2 transition ${mode !== "signup" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>Sign in</button>
           <button type="button" onClick={() => { setMode("signup"); reset(); }} className={`flex-1 rounded-sm py-2 transition ${mode === "signup" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>Sign up</button>
