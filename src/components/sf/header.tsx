@@ -11,7 +11,11 @@ const NAV = [
   { to: "/browse/dramas", label: "Dramas" },
   { to: "/browse/cartoons", label: "Kids" },
   { to: "/browse/documentaries", label: "Documentaries" },
+<<<<<<< HEAD
   { to: "/browse/apps", label: "Apps" },
+=======
+  { to: "/download", label: "Apps" },
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 ];
 
 export function Header() {

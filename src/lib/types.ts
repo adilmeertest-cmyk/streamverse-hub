@@ -48,6 +48,7 @@ export interface SubscriptionPlan {
   max_quality: string;
   features: string[];
   trial_days: number;
+<<<<<<< HEAD
 }
 
 export type AppPlatform = "android" | "windows" | "macos" | "linux" | "ios" | "smart_tv";
@@ -90,4 +91,6 @@ export interface AppDownload {
   platform_id: string;
   downloaded_at: string;
   device_fingerprint: string | null;
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 }

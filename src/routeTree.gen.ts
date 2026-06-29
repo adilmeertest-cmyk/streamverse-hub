@@ -25,29 +25,44 @@ import { Route as BrowseMoviesRouteImport } from './routes/browse.movies'
 import { Route as BrowseDramasRouteImport } from './routes/browse.dramas'
 import { Route as BrowseDocumentariesRouteImport } from './routes/browse.documentaries'
 import { Route as BrowseCartoonsRouteImport } from './routes/browse.cartoons'
+<<<<<<< HEAD
 import { Route as BrowseAppsRouteImport } from './routes/browse.apps'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
+=======
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 import { Route as AuthenticatedWatchlistRouteImport } from './routes/_authenticated/watchlist'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+<<<<<<< HEAD
 import { Route as ApiIngestTrendingMoviesRouteImport } from './routes/api/ingest/trending-movies'
 import { Route as ApiIngestPopularTvRouteImport } from './routes/api/ingest/popular-tv'
 import { Route as ApiIngestPopularMoviesRouteImport } from './routes/api/ingest/popular-movies'
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 import { Route as AuthenticatedAdminTitlesRouteImport } from './routes/_authenticated/admin/titles'
 import { Route as AuthenticatedAdminTaxonomyRouteImport } from './routes/_authenticated/admin/taxonomy'
 import { Route as AuthenticatedAdminSyncRouteImport } from './routes/_authenticated/admin/sync'
 import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin/reviews'
 import { Route as AuthenticatedAdminPlansRouteImport } from './routes/_authenticated/admin/plans'
+<<<<<<< HEAD
 import { Route as AuthenticatedAdminContentIngestionRouteImport } from './routes/_authenticated/admin/content-ingestion'
 import { Route as AuthenticatedAdminBannersRouteImport } from './routes/_authenticated/admin/banners'
 import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin/audit'
 import { Route as AuthenticatedAdminAppsRouteImport } from './routes/_authenticated/admin/apps'
 import { Route as AuthenticatedAdminTitlesIdRouteImport } from './routes/_authenticated/admin/titles.$id'
 import { Route as AuthenticatedAdminAppsIdRouteImport } from './routes/_authenticated/admin/apps.$id'
+=======
+import { Route as AuthenticatedAdminDownloadsRouteImport } from './routes/_authenticated/admin/downloads'
+import { Route as AuthenticatedAdminBannersRouteImport } from './routes/_authenticated/admin/banners'
+import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin/audit'
+import { Route as ApiPublicDownloadIdRouteImport } from './routes/api/public/download.$id'
+import { Route as AuthenticatedAdminTitlesIdRouteImport } from './routes/_authenticated/admin/titles.$id'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -128,21 +143,27 @@ const BrowseCartoonsRoute = BrowseCartoonsRouteImport.update({
   path: '/cartoons',
   getParentRoute: () => BrowseRoute,
 } as any)
+<<<<<<< HEAD
 const BrowseAppsRoute = BrowseAppsRouteImport.update({
   id: '/apps',
   path: '/apps',
   getParentRoute: () => BrowseRoute,
 } as any)
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
   getParentRoute: () => AuthRoute,
 } as any)
+<<<<<<< HEAD
 const AppsSlugRoute = AppsSlugRouteImport.update({
   id: '/apps/$slug',
   path: '/apps/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 const AuthenticatedWatchlistRoute = AuthenticatedWatchlistRouteImport.update({
   id: '/watchlist',
   path: '/watchlist',
@@ -168,6 +189,7 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   path: '/api/public/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const ApiIngestTrendingMoviesRoute = ApiIngestTrendingMoviesRouteImport.update({
   id: '/api/ingest/trending-movies',
   path: '/api/ingest/trending-movies',
@@ -183,6 +205,8 @@ const ApiIngestPopularMoviesRoute = ApiIngestPopularMoviesRouteImport.update({
   path: '/api/ingest/popular-movies',
   getParentRoute: () => rootRouteImport,
 } as any)
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
@@ -216,10 +240,17 @@ const AuthenticatedAdminPlansRoute = AuthenticatedAdminPlansRouteImport.update({
   path: '/plans',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+<<<<<<< HEAD
 const AuthenticatedAdminContentIngestionRoute =
   AuthenticatedAdminContentIngestionRouteImport.update({
     id: '/content-ingestion',
     path: '/content-ingestion',
+=======
+const AuthenticatedAdminDownloadsRoute =
+  AuthenticatedAdminDownloadsRouteImport.update({
+    id: '/downloads',
+    path: '/downloads',
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminBannersRoute =
@@ -233,10 +264,17 @@ const AuthenticatedAdminAuditRoute = AuthenticatedAdminAuditRouteImport.update({
   path: '/audit',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+<<<<<<< HEAD
 const AuthenticatedAdminAppsRoute = AuthenticatedAdminAppsRouteImport.update({
   id: '/apps',
   path: '/apps',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
+=======
+const ApiPublicDownloadIdRoute = ApiPublicDownloadIdRouteImport.update({
+  id: '/api/public/download/$id',
+  path: '/api/public/download/$id',
+  getParentRoute: () => rootRouteImport,
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 } as any)
 const AuthenticatedAdminTitlesIdRoute =
   AuthenticatedAdminTitlesIdRouteImport.update({
@@ -244,12 +282,15 @@ const AuthenticatedAdminTitlesIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedAdminTitlesRoute,
   } as any)
+<<<<<<< HEAD
 const AuthenticatedAdminAppsIdRoute =
   AuthenticatedAdminAppsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => AuthenticatedAdminAppsRoute,
   } as any)
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -262,9 +303,13 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
   '/watchlist': typeof AuthenticatedWatchlistRoute
+<<<<<<< HEAD
   '/apps/$slug': typeof AppsSlugRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/browse/apps': typeof BrowseAppsRoute
+=======
+  '/auth/callback': typeof AuthCallbackRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   '/browse/cartoons': typeof BrowseCartoonsRoute
   '/browse/documentaries': typeof BrowseDocumentariesRoute
   '/browse/dramas': typeof BrowseDramasRoute
@@ -272,16 +317,23 @@ export interface FileRoutesByFullPath {
   '/browse/series': typeof BrowseSeriesRoute
   '/title/$slug': typeof TitleSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
+<<<<<<< HEAD
   '/admin/apps': typeof AuthenticatedAdminAppsRouteWithChildren
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
   '/admin/content-ingestion': typeof AuthenticatedAdminContentIngestionRoute
+=======
+  '/admin/audit': typeof AuthenticatedAdminAuditRoute
+  '/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
   '/admin/taxonomy': typeof AuthenticatedAdminTaxonomyRoute
   '/admin/titles': typeof AuthenticatedAdminTitlesRouteWithChildren
   '/admin/users': typeof AuthenticatedAdminUsersRoute
+<<<<<<< HEAD
   '/api/ingest/popular-movies': typeof ApiIngestPopularMoviesRoute
   '/api/ingest/popular-tv': typeof ApiIngestPopularTvRoute
   '/api/ingest/trending-movies': typeof ApiIngestTrendingMoviesRoute
@@ -289,6 +341,12 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/apps/$id': typeof AuthenticatedAdminAppsIdRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+=======
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -301,9 +359,13 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
   '/watchlist': typeof AuthenticatedWatchlistRoute
+<<<<<<< HEAD
   '/apps/$slug': typeof AppsSlugRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/browse/apps': typeof BrowseAppsRoute
+=======
+  '/auth/callback': typeof AuthCallbackRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   '/browse/cartoons': typeof BrowseCartoonsRoute
   '/browse/documentaries': typeof BrowseDocumentariesRoute
   '/browse/dramas': typeof BrowseDramasRoute
@@ -311,22 +373,34 @@ export interface FileRoutesByTo {
   '/browse/series': typeof BrowseSeriesRoute
   '/title/$slug': typeof TitleSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
+<<<<<<< HEAD
   '/admin/apps': typeof AuthenticatedAdminAppsRouteWithChildren
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
   '/admin/content-ingestion': typeof AuthenticatedAdminContentIngestionRoute
+=======
+  '/admin/audit': typeof AuthenticatedAdminAuditRoute
+  '/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
   '/admin/taxonomy': typeof AuthenticatedAdminTaxonomyRoute
   '/admin/titles': typeof AuthenticatedAdminTitlesRouteWithChildren
   '/admin/users': typeof AuthenticatedAdminUsersRoute
+<<<<<<< HEAD
   '/api/ingest/popular-movies': typeof ApiIngestPopularMoviesRoute
   '/api/ingest/popular-tv': typeof ApiIngestPopularTvRoute
   '/api/ingest/trending-movies': typeof ApiIngestTrendingMoviesRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/apps/$id': typeof AuthenticatedAdminAppsIdRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+=======
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -342,9 +416,13 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/watchlist': typeof AuthenticatedWatchlistRoute
+<<<<<<< HEAD
   '/apps/$slug': typeof AppsSlugRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/browse/apps': typeof BrowseAppsRoute
+=======
+  '/auth/callback': typeof AuthCallbackRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   '/browse/cartoons': typeof BrowseCartoonsRoute
   '/browse/documentaries': typeof BrowseDocumentariesRoute
   '/browse/dramas': typeof BrowseDramasRoute
@@ -352,16 +430,23 @@ export interface FileRoutesById {
   '/browse/series': typeof BrowseSeriesRoute
   '/title/$slug': typeof TitleSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
+<<<<<<< HEAD
   '/_authenticated/admin/apps': typeof AuthenticatedAdminAppsRouteWithChildren
   '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/banners': typeof AuthenticatedAdminBannersRoute
   '/_authenticated/admin/content-ingestion': typeof AuthenticatedAdminContentIngestionRoute
+=======
+  '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
+  '/_authenticated/admin/banners': typeof AuthenticatedAdminBannersRoute
+  '/_authenticated/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   '/_authenticated/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/admin/sync': typeof AuthenticatedAdminSyncRoute
   '/_authenticated/admin/taxonomy': typeof AuthenticatedAdminTaxonomyRoute
   '/_authenticated/admin/titles': typeof AuthenticatedAdminTitlesRouteWithChildren
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+<<<<<<< HEAD
   '/api/ingest/popular-movies': typeof ApiIngestPopularMoviesRoute
   '/api/ingest/popular-tv': typeof ApiIngestPopularTvRoute
   '/api/ingest/trending-movies': typeof ApiIngestTrendingMoviesRoute
@@ -369,6 +454,12 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/apps/$id': typeof AuthenticatedAdminAppsIdRoute
   '/_authenticated/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+=======
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
+  '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -383,9 +474,13 @@ export interface FileRouteTypes {
     | '/search'
     | '/account'
     | '/watchlist'
+<<<<<<< HEAD
     | '/apps/$slug'
     | '/auth/callback'
     | '/browse/apps'
+=======
+    | '/auth/callback'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     | '/browse/cartoons'
     | '/browse/documentaries'
     | '/browse/dramas'
@@ -393,16 +488,23 @@ export interface FileRouteTypes {
     | '/browse/series'
     | '/title/$slug'
     | '/watch/$slug'
+<<<<<<< HEAD
     | '/admin/apps'
     | '/admin/audit'
     | '/admin/banners'
     | '/admin/content-ingestion'
+=======
+    | '/admin/audit'
+    | '/admin/banners'
+    | '/admin/downloads'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
     | '/admin/taxonomy'
     | '/admin/titles'
     | '/admin/users'
+<<<<<<< HEAD
     | '/api/ingest/popular-movies'
     | '/api/ingest/popular-tv'
     | '/api/ingest/trending-movies'
@@ -410,6 +512,12 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/apps/$id'
     | '/admin/titles/$id'
+=======
+    | '/api/public/stripe-webhook'
+    | '/admin/'
+    | '/admin/titles/$id'
+    | '/api/public/download/$id'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -422,9 +530,13 @@ export interface FileRouteTypes {
     | '/search'
     | '/account'
     | '/watchlist'
+<<<<<<< HEAD
     | '/apps/$slug'
     | '/auth/callback'
     | '/browse/apps'
+=======
+    | '/auth/callback'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     | '/browse/cartoons'
     | '/browse/documentaries'
     | '/browse/dramas'
@@ -432,22 +544,34 @@ export interface FileRouteTypes {
     | '/browse/series'
     | '/title/$slug'
     | '/watch/$slug'
+<<<<<<< HEAD
     | '/admin/apps'
     | '/admin/audit'
     | '/admin/banners'
     | '/admin/content-ingestion'
+=======
+    | '/admin/audit'
+    | '/admin/banners'
+    | '/admin/downloads'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
     | '/admin/taxonomy'
     | '/admin/titles'
     | '/admin/users'
+<<<<<<< HEAD
     | '/api/ingest/popular-movies'
     | '/api/ingest/popular-tv'
     | '/api/ingest/trending-movies'
     | '/api/public/stripe-webhook'
     | '/admin/apps/$id'
     | '/admin/titles/$id'
+=======
+    | '/api/public/stripe-webhook'
+    | '/admin/titles/$id'
+    | '/api/public/download/$id'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   id:
     | '__root__'
     | '/'
@@ -462,9 +586,13 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/account'
     | '/_authenticated/watchlist'
+<<<<<<< HEAD
     | '/apps/$slug'
     | '/auth/callback'
     | '/browse/apps'
+=======
+    | '/auth/callback'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     | '/browse/cartoons'
     | '/browse/documentaries'
     | '/browse/dramas'
@@ -472,16 +600,23 @@ export interface FileRouteTypes {
     | '/browse/series'
     | '/title/$slug'
     | '/watch/$slug'
+<<<<<<< HEAD
     | '/_authenticated/admin/apps'
     | '/_authenticated/admin/audit'
     | '/_authenticated/admin/banners'
     | '/_authenticated/admin/content-ingestion'
+=======
+    | '/_authenticated/admin/audit'
+    | '/_authenticated/admin/banners'
+    | '/_authenticated/admin/downloads'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     | '/_authenticated/admin/plans'
     | '/_authenticated/admin/reviews'
     | '/_authenticated/admin/sync'
     | '/_authenticated/admin/taxonomy'
     | '/_authenticated/admin/titles'
     | '/_authenticated/admin/users'
+<<<<<<< HEAD
     | '/api/ingest/popular-movies'
     | '/api/ingest/popular-tv'
     | '/api/ingest/trending-movies'
@@ -489,6 +624,12 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/_authenticated/admin/apps/$id'
     | '/_authenticated/admin/titles/$id'
+=======
+    | '/api/public/stripe-webhook'
+    | '/_authenticated/admin/'
+    | '/_authenticated/admin/titles/$id'
+    | '/api/public/download/$id'
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -501,6 +642,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SearchRoute: typeof SearchRoute
+<<<<<<< HEAD
   AppsSlugRoute: typeof AppsSlugRoute
   TitleSlugRoute: typeof TitleSlugRoute
   WatchSlugRoute: typeof WatchSlugRoute
@@ -508,6 +650,12 @@ export interface RootRouteChildren {
   ApiIngestPopularTvRoute: typeof ApiIngestPopularTvRoute
   ApiIngestTrendingMoviesRoute: typeof ApiIngestTrendingMoviesRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+=======
+  TitleSlugRoute: typeof TitleSlugRoute
+  WatchSlugRoute: typeof WatchSlugRoute
+  ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicDownloadIdRoute: typeof ApiPublicDownloadIdRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 }
 
 declare module '@tanstack/react-router' {
@@ -624,6 +772,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrowseCartoonsRouteImport
       parentRoute: typeof BrowseRoute
     }
+<<<<<<< HEAD
     '/browse/apps': {
       id: '/browse/apps'
       path: '/apps'
@@ -631,6 +780,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrowseAppsRouteImport
       parentRoute: typeof BrowseRoute
     }
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     '/auth/callback': {
       id: '/auth/callback'
       path: '/callback'
@@ -638,6 +789,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
     }
+<<<<<<< HEAD
     '/apps/$slug': {
       id: '/apps/$slug'
       path: '/apps/$slug'
@@ -645,6 +797,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     '/_authenticated/watchlist': {
       id: '/_authenticated/watchlist'
       path: '/watchlist'
@@ -680,6 +834,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/api/ingest/trending-movies': {
       id: '/api/ingest/trending-movies'
       path: '/api/ingest/trending-movies'
@@ -701,6 +856,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIngestPopularMoviesRouteImport
       parentRoute: typeof rootRouteImport
     }
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     '/_authenticated/admin/users': {
       id: '/_authenticated/admin/users'
       path: '/users'
@@ -743,11 +900,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPlansRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+<<<<<<< HEAD
     '/_authenticated/admin/content-ingestion': {
       id: '/_authenticated/admin/content-ingestion'
       path: '/content-ingestion'
       fullPath: '/admin/content-ingestion'
       preLoaderRoute: typeof AuthenticatedAdminContentIngestionRouteImport
+=======
+    '/_authenticated/admin/downloads': {
+      id: '/_authenticated/admin/downloads'
+      path: '/downloads'
+      fullPath: '/admin/downloads'
+      preLoaderRoute: typeof AuthenticatedAdminDownloadsRouteImport
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/banners': {
@@ -764,12 +929,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAuditRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+<<<<<<< HEAD
     '/_authenticated/admin/apps': {
       id: '/_authenticated/admin/apps'
       path: '/apps'
       fullPath: '/admin/apps'
       preLoaderRoute: typeof AuthenticatedAdminAppsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+=======
+    '/api/public/download/$id': {
+      id: '/api/public/download/$id'
+      path: '/api/public/download/$id'
+      fullPath: '/api/public/download/$id'
+      preLoaderRoute: typeof ApiPublicDownloadIdRouteImport
+      parentRoute: typeof rootRouteImport
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     }
     '/_authenticated/admin/titles/$id': {
       id: '/_authenticated/admin/titles/$id'
@@ -778,6 +952,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTitlesIdRouteImport
       parentRoute: typeof AuthenticatedAdminTitlesRoute
     }
+<<<<<<< HEAD
     '/_authenticated/admin/apps/$id': {
       id: '/_authenticated/admin/apps/$id'
       path: '/$id'
@@ -802,6 +977,11 @@ const AuthenticatedAdminAppsRouteWithChildren =
     AuthenticatedAdminAppsRouteChildren,
   )
 
+=======
+  }
+}
+
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 interface AuthenticatedAdminTitlesRouteChildren {
   AuthenticatedAdminTitlesIdRoute: typeof AuthenticatedAdminTitlesIdRoute
 }
@@ -817,10 +997,16 @@ const AuthenticatedAdminTitlesRouteWithChildren =
   )
 
 interface AuthenticatedAdminRouteRouteChildren {
+<<<<<<< HEAD
   AuthenticatedAdminAppsRoute: typeof AuthenticatedAdminAppsRouteWithChildren
   AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
   AuthenticatedAdminBannersRoute: typeof AuthenticatedAdminBannersRoute
   AuthenticatedAdminContentIngestionRoute: typeof AuthenticatedAdminContentIngestionRoute
+=======
+  AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
+  AuthenticatedAdminBannersRoute: typeof AuthenticatedAdminBannersRoute
+  AuthenticatedAdminDownloadsRoute: typeof AuthenticatedAdminDownloadsRoute
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   AuthenticatedAdminPlansRoute: typeof AuthenticatedAdminPlansRoute
   AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
   AuthenticatedAdminSyncRoute: typeof AuthenticatedAdminSyncRoute
@@ -832,11 +1018,17 @@ interface AuthenticatedAdminRouteRouteChildren {
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+<<<<<<< HEAD
     AuthenticatedAdminAppsRoute: AuthenticatedAdminAppsRouteWithChildren,
     AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
     AuthenticatedAdminBannersRoute: AuthenticatedAdminBannersRoute,
     AuthenticatedAdminContentIngestionRoute:
       AuthenticatedAdminContentIngestionRoute,
+=======
+    AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
+    AuthenticatedAdminBannersRoute: AuthenticatedAdminBannersRoute,
+    AuthenticatedAdminDownloadsRoute: AuthenticatedAdminDownloadsRoute,
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
     AuthenticatedAdminPlansRoute: AuthenticatedAdminPlansRoute,
     AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
     AuthenticatedAdminSyncRoute: AuthenticatedAdminSyncRoute,
@@ -877,7 +1069,10 @@ const AuthRouteChildren: AuthRouteChildren = {
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface BrowseRouteChildren {
+<<<<<<< HEAD
   BrowseAppsRoute: typeof BrowseAppsRoute
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   BrowseCartoonsRoute: typeof BrowseCartoonsRoute
   BrowseDocumentariesRoute: typeof BrowseDocumentariesRoute
   BrowseDramasRoute: typeof BrowseDramasRoute
@@ -886,7 +1081,10 @@ interface BrowseRouteChildren {
 }
 
 const BrowseRouteChildren: BrowseRouteChildren = {
+<<<<<<< HEAD
   BrowseAppsRoute: BrowseAppsRoute,
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   BrowseCartoonsRoute: BrowseCartoonsRoute,
   BrowseDocumentariesRoute: BrowseDocumentariesRoute,
   BrowseDramasRoute: BrowseDramasRoute,
@@ -907,6 +1105,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SearchRoute: SearchRoute,
+<<<<<<< HEAD
   AppsSlugRoute: AppsSlugRoute,
   TitleSlugRoute: TitleSlugRoute,
   WatchSlugRoute: WatchSlugRoute,
@@ -914,10 +1113,17 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIngestPopularTvRoute: ApiIngestPopularTvRoute,
   ApiIngestTrendingMoviesRoute: ApiIngestTrendingMoviesRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+=======
+  TitleSlugRoute: TitleSlugRoute,
+  WatchSlugRoute: WatchSlugRoute,
+  ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicDownloadIdRoute: ApiPublicDownloadIdRoute,
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+<<<<<<< HEAD
 
 import type { getRouter } from './router.tsx'
 import type { startInstance } from './start.ts'
@@ -928,3 +1134,5 @@ declare module '@tanstack/react-start' {
     config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d

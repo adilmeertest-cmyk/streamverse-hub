@@ -1,14 +1,23 @@
 import { createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+<<<<<<< HEAD
 import { checkEmailExists, generateDeviceFingerprint } from "@/lib/apps.functions";
+=======
+import { Shell } from "@/components/sf/shell";
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
   head: () => ({ meta: [{ title: "Sign in — StreamFlix" }, { name: "description", content: "Sign in or create an account on StreamFlix." }] }),
   component: AuthPage,
+<<<<<<< HEAD
   errorComponent: ({ error }) => <div className="min-h-screen flex items-center justify-center bg-background px-4"><div className="p-12">{error.message}</div></div>,
   notFoundComponent: () => <div className="min-h-screen flex items-center justify-center bg-background px-4"><div className="p-12">Not found</div></div>,
+=======
+  errorComponent: ({ error }) => <Shell><div className="p-12">{error.message}</div></Shell>,
+  notFoundComponent: () => <Shell><div className="p-12">Not found</div></Shell>,
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 });
 
 type Mode = "signin" | "signup" | "forgot";
@@ -42,6 +51,7 @@ function AuthPage() {
     try {
       if (mode === "signup") {
         if (password !== confirmPassword) throw new Error("Passwords do not match");
+<<<<<<< HEAD
         if (password.length < 8) throw new Error("Password must be at least 8 characters long");
         
         // Check if email already exists
@@ -53,15 +63,21 @@ function AuthPage() {
         // Generate device fingerprint
         const deviceFingerprint = await generateDeviceFingerprint();
 
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/auth/callback`,
+<<<<<<< HEAD
             data: { 
               display_name: name,
               device_fingerprint: deviceFingerprint,
             },
+=======
+            data: { display_name: name },
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
           },
         });
         if (error) throw error;
@@ -84,6 +100,7 @@ function AuthPage() {
           }
           throw error;
         }
+<<<<<<< HEAD
         
         // Update device fingerprint on login
         const { data: { user } } = await supabase.auth.getUser();
@@ -94,6 +111,8 @@ function AuthPage() {
           }).eq("id", user.id);
         }
         
+=======
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
         navigate({ to: "/" });
       }
     } catch (e: any) {
@@ -126,8 +145,13 @@ function AuthPage() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="mx-auto max-w-md w-full py-16">
+=======
+    <Shell>
+      <div className="mx-auto max-w-md px-4 py-16">
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
         <div className="flex rounded-md border border-border bg-card p-1 text-sm font-semibold">
           <button type="button" onClick={() => { setMode("signin"); reset(); }} className={`flex-1 rounded-sm py-2 transition ${mode !== "signup" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>Sign in</button>
           <button type="button" onClick={() => { setMode("signup"); reset(); }} className={`flex-1 rounded-sm py-2 transition ${mode === "signup" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>Sign up</button>
@@ -157,10 +181,17 @@ function AuthPage() {
           )}
           <input value={email} onChange={(e) => setEmail(e.target.value)} required type="email" placeholder="Email address" className="w-full rounded-md bg-card border border-border px-3 py-2.5 outline-none focus:border-primary" />
           {mode !== "forgot" && (
+<<<<<<< HEAD
             <input value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} type="password" placeholder="Password (min 8 characters)" className="w-full rounded-md bg-card border border-border px-3 py-2.5 outline-none focus:border-primary" />
           )}
           {mode === "signup" && (
             <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={8} type="password" placeholder="Confirm password" className="w-full rounded-md bg-card border border-border px-3 py-2.5 outline-none focus:border-primary" />
+=======
+            <input value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} type="password" placeholder="Password" className="w-full rounded-md bg-card border border-border px-3 py-2.5 outline-none focus:border-primary" />
+          )}
+          {mode === "signup" && (
+            <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={6} type="password" placeholder="Confirm password" className="w-full rounded-md bg-card border border-border px-3 py-2.5 outline-none focus:border-primary" />
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
           )}
           {err && <div className="text-sm text-destructive">{err}</div>}
           {info && <div className="text-sm text-emerald-500">{info}</div>}
@@ -178,6 +209,10 @@ function AuthPage() {
           )}
         </div>
       </div>
+<<<<<<< HEAD
     </div>
+=======
+    </Shell>
+>>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   );
 }
