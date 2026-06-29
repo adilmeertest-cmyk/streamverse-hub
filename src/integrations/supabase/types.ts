@@ -41,6 +41,149 @@ export type Database = {
         }
         Relationships: []
       }
+      app_downloads: {
+        Row: {
+          app_id: string
+          device_fingerprint: string | null
+          downloaded_at: string
+          id: string
+          platform_id: string
+          user_id: string
+        }
+        Insert: {
+          app_id: string
+          device_fingerprint?: string | null
+          downloaded_at?: string
+          id?: string
+          platform_id: string
+          user_id: string
+        }
+        Update: {
+          app_id?: string
+          device_fingerprint?: string | null
+          downloaded_at?: string
+          id?: string
+          platform_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "app_downloads_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "app_downloads_platform_id_fkey"
+            columns: ["platform_id"]
+            isOneToOne: false
+            referencedRelation: "app_platforms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      app_platforms: {
+        Row: {
+          app_id: string
+          changelog: string | null
+          created_at: string
+          file_name: string
+          file_size: string
+          file_url: string
+          id: string
+          is_active: boolean
+          min_os_version: string | null
+          platform: Database["public"]["Enums"]["app_platform"]
+          version: string
+        }
+        Insert: {
+          app_id: string
+          changelog?: string | null
+          created_at?: string
+          file_name: string
+          file_size: string
+          file_url: string
+          id?: string
+          is_active?: boolean
+          min_os_version?: string | null
+          platform: Database["public"]["Enums"]["app_platform"]
+          version: string
+        }
+        Update: {
+          app_id?: string
+          changelog?: string | null
+          created_at?: string
+          file_name?: string
+          file_size?: string
+          file_url?: string
+          id?: string
+          is_active?: boolean
+          min_os_version?: string | null
+          platform?: Database["public"]["Enums"]["app_platform"]
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "app_platforms_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      apps: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          developer: string | null
+          download_count: number
+          icon_url: string | null
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          name: string
+          rating: number | null
+          slug: string
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          developer?: string | null
+          download_count?: number
+          icon_url?: string | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          name: string
+          rating?: number | null
+          slug: string
+          updated_at?: string
+          version?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          developer?: string | null
+          download_count?: number
+          icon_url?: string | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          name?: string
+          rating?: number | null
+          slug?: string
+          updated_at?: string
+          version?: string
+        }
+        Relationships: []
+      }
       audit_logs: {
         Row: {
           action: string
@@ -379,9 +522,11 @@ export type Database = {
           avatar_url: string | null
           country: string | null
           created_at: string
+          device_fingerprint: string | null
           display_name: string | null
           email: string | null
           id: string
+          is_primary_device: boolean
           stripe_customer_id: string | null
           updated_at: string
         }
@@ -389,9 +534,11 @@ export type Database = {
           avatar_url?: string | null
           country?: string | null
           created_at?: string
+          device_fingerprint?: string | null
           display_name?: string | null
           email?: string | null
           id: string
+          is_primary_device?: boolean
           stripe_customer_id?: string | null
           updated_at?: string
         }
@@ -399,9 +546,11 @@ export type Database = {
           avatar_url?: string | null
           country?: string | null
           created_at?: string
+          device_fingerprint?: string | null
           display_name?: string | null
           email?: string | null
           id?: string
+          is_primary_device?: boolean
           stripe_customer_id?: string | null
           updated_at?: string
         }
@@ -840,6 +989,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_app_download: { Args: { _app_id: string }; Returns: undefined }
       increment_download_count: { Args: { _id: string }; Returns: undefined }
       recompute_title_rating: {
         Args: { _title_id: string }
@@ -847,6 +997,13 @@ export type Database = {
       }
     }
     Enums: {
+      app_platform:
+        | "android"
+        | "windows"
+        | "macos"
+        | "linux"
+        | "ios"
+        | "smart_tv"
       app_role:
         | "super_admin"
         | "content_manager"
@@ -1000,6 +1157,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_platform: ["android", "windows", "macos", "linux", "ios", "smart_tv"],
       app_role: [
         "super_admin",
         "content_manager",
