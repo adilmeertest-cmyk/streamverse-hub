@@ -1,0 +1,15 @@
+{
+  "name": "StreamFlix",
+  "short_name": "StreamFlix",
+  "description": "Stream movies, series, dramas, kids shows and documentaries.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0a",
+  "theme_color": "#e50914",
+  "icons": [
+    { "src": "/icons/streamflix-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/streamflix-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
