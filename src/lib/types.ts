@@ -64,7 +64,7 @@ export interface App {
   is_published: boolean;
   is_featured: boolean;
   download_count: number;
-  rating: number;
+  rating: number | null;
   created_at: string;
   updated_at: string;
 }
