@@ -120,10 +120,10 @@ function Page() {
                   <span className="rounded-full bg-secondary px-3 py-1 font-medium text-secondary-foreground">
                     v{app.version}
                   </span>
-                  {app.rating > 0 && (
+                  {(app.rating ?? 0) > 0 && (
                     <span className="flex items-center gap-1 text-muted-foreground">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      {app.rating.toFixed(1)}
+                      {(app.rating ?? 0).toFixed(1)}
                     </span>
                   )}
                   <span className="text-muted-foreground">{app.download_count.toLocaleString()} downloads</span>
