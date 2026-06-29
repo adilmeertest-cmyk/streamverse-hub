@@ -18,17 +18,22 @@ function AccountPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [portalErr, setPortalErr] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const portal = useServerFn(createBillingPortalSession);
   const sub = useServerFn(getMySubscription);
-  const fetchDownloads = useServerFn(fetchUserDownloads);
   const { data: s } = useQuery({ queryKey: ["my-sub"], queryFn: () => sub({}) as any });
-  const { data: downloads } = useQuery({ queryKey: ["my-downloads"], queryFn: () => fetchDownloads({}) as any });
+  const { data: downloads } = useQuery({
+    queryKey: ["my-downloads", userId],
+    queryFn: () => fetchUserDownloads(userId!),
+    enabled: !!userId,
+  });
 
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) return;
       setEmail(u.user.email ?? "");
+      setUserId(u.user.id);
       const { data } = await supabase.from("profiles").select("display_name").eq("id", u.user.id).maybeSingle();
       setName(data?.display_name ?? "");
     })();
