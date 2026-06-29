@@ -8,6 +8,22 @@ import { getMySubscription, createBillingPortalSession } from "@/lib/billing.fun
 import { fetchUserDownloads } from "@/lib/apps.functions";
 import { Download, Package, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/_authenticated/account")({
+  component: AccountPage,
+});
+
+function AccountPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [portalErr, setPortalErr] = useState<string | null>(null);
+  const portal = useServerFn(createBillingPortalSession);
+  const sub = useServerFn(getMySubscription);
+  const fetchDownloads = useServerFn(fetchUserDownloads);
+  const { data: s } = useQuery({ queryKey: ["my-sub"], queryFn: () => sub({}) as any });
+  const { data: downloads } = useQuery({ queryKey: ["my-downloads"], queryFn: () => fetchDownloads({}) as any });
+
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
