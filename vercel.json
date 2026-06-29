@@ -7,7 +7,6 @@
   "regions": ["iad1"],
 
   "env": {
-    "TMDB_API_KEY": "@tmdb_api_key",
     "STRIPE_SECRET_KEY": "@stripe_secret_key",
     "STRIPE_WEBHOOK_SECRET": "@stripe_webhook_secret",
     "SUPABASE_PROJECT_ID": "@supabase_project_id",
