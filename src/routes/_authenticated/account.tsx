@@ -5,47 +5,9 @@ import { Shell } from "@/components/sf/shell";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getMySubscription, createBillingPortalSession } from "@/lib/billing.functions";
-<<<<<<< HEAD
 import { fetchUserDownloads } from "@/lib/apps.functions";
 import { Download, Package, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-=======
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
-
-export const Route = createFileRoute("/_authenticated/account")({
-  head: () => ({ meta: [{ title: "Account — StreamFlix" }, { name: "description", content: "Manage your StreamFlix account." }] }),
-  component: AccountPage,
-  errorComponent: ({ error }) => <Shell><div className="p-12">{error.message}</div></Shell>,
-  notFoundComponent: () => <Shell><div className="p-12">Not found</div></Shell>,
-});
-
-function AccountPage() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const sub = useServerFn(getMySubscription);
-  const portal = useServerFn(createBillingPortalSession);
-  const [portalErr, setPortalErr] = useState<string | null>(null);
-  const { data: mySub } = useQuery({ queryKey: ["my-subscription"], queryFn: () => sub() as never });
-  const s = (mySub as unknown) as { status: string; current_period_end: string | null; cancel_at_period_end: boolean; subscription_plans: { name: string; tier: string; interval: string } | null } | null;
-
-<<<<<<< HEAD
-  const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const { data } = await supabase.auth.getUser();
-      return data.user;
-    },
-  });
-
-  const { data: downloads } = useQuery({
-    queryKey: ["user-downloads", user?.id],
-    queryFn: () => user ? fetchUserDownloads(user.id) : [],
-    enabled: !!user,
-  });
-
-=======
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
@@ -96,7 +58,6 @@ function AccountPage() {
               <Link to="/watchlist" className="rounded-md bg-secondary px-4 py-2 text-sm font-semibold">My list</Link>
             </div>
           </div>
-<<<<<<< HEAD
           <div className="rounded-lg border border-border bg-card p-5">
             <div className="font-semibold flex items-center gap-2">
               <Download className="h-4 w-4" />
@@ -129,8 +90,6 @@ function AccountPage() {
               Browse apps <ExternalLink className="h-3 w-3" />
             </Link>
           </div>
-=======
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
           <button onClick={signOut} className="w-full rounded-md bg-destructive px-4 py-2.5 font-semibold text-destructive-foreground">Sign out</button>
         </div>
       </div>

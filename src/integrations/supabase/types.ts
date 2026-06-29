@@ -181,8 +181,6 @@ export type Database = {
         }
         Relationships: []
       }
-<<<<<<< HEAD
-=======
       downloads: {
         Row: {
           checksum: string | null
@@ -234,7 +232,6 @@ export type Database = {
         }
         Relationships: []
       }
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
       episodes: {
         Row: {
           air_date: string | null
@@ -843,10 +840,7 @@ export type Database = {
         }
         Returns: boolean
       }
-<<<<<<< HEAD
-=======
       increment_download_count: { Args: { _id: string }; Returns: undefined }
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
       recompute_title_rating: {
         Args: { _title_id: string }
         Returns: undefined
@@ -861,8 +855,6 @@ export type Database = {
         | "support_agent"
         | "analytics_manager"
         | "user"
-<<<<<<< HEAD
-=======
       download_platform:
         | "windows"
         | "macos"
@@ -871,7 +863,6 @@ export type Database = {
         | "ios"
         | "android_tv"
         | "smart_tv"
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
       plan_interval: "monthly" | "yearly"
       plan_tier: "basic" | "standard" | "premium" | "family"
       review_state: "draft" | "pending" | "approved" | "published" | "rejected"
@@ -1018,8 +1009,6 @@ export const Constants = {
         "analytics_manager",
         "user",
       ],
-<<<<<<< HEAD
-=======
       download_platform: [
         "windows",
         "macos",
@@ -1029,7 +1018,6 @@ export const Constants = {
         "android_tv",
         "smart_tv",
       ],
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
       plan_interval: ["monthly", "yearly"],
       plan_tier: ["basic", "standard", "premium", "family"],
       review_state: ["draft", "pending", "approved", "published", "rejected"],

@@ -1,29 +1,12 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
-<<<<<<< HEAD
 import { LayoutDashboard, Film, Tags, Image as ImageIcon, MessageSquare, Users, CreditCard, ScrollText, ArrowLeft, RefreshCw, Package, Download } from "lucide-react";
-=======
-import { LayoutDashboard, Film, Tags, Image as ImageIcon, MessageSquare, Users, CreditCard, ScrollText, ArrowLeft, RefreshCw, Download } from "lucide-react";
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
 import type { ReactNode } from "react";
 
 const NAV = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/admin/titles", label: "Titles", icon: Film },
-<<<<<<< HEAD
   { to: "/admin/apps", label: "Apps", icon: Package },
   { to: "/admin/content-ingestion", label: "Content Ingestion", icon: Download },
-=======
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
-  { to: "/admin/taxonomy", label: "Taxonomy", icon: Tags },
-  { to: "/admin/banners", label: "Banners", icon: ImageIcon },
-  { to: "/admin/reviews", label: "Reviews", icon: MessageSquare },
-  { to: "/admin/users", label: "Users & Roles", icon: Users },
-  { to: "/admin/plans", label: "Plans", icon: CreditCard },
-  { to: "/admin/sync", label: "Content Sync", icon: RefreshCw },
-<<<<<<< HEAD
-=======
-  { to: "/admin/downloads", label: "App Downloads", icon: Download },
->>>>>>> 7cc04d1e6d1999b3bee0b5e0ca122015c3323d7d
   { to: "/admin/audit", label: "Audit log", icon: ScrollText },
 ];
 
