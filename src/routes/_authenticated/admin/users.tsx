@@ -21,7 +21,7 @@ function UsersAdmin() {
   const qc = useQueryClient();
   const [q, setQ] = useState("");
   const { data } = useQuery({ queryKey: ["admin-users", q], queryFn: () => list({ data: { q: q || undefined } } as never) as never });
-  const rows = ((data as unknown) as Array<{ id: string; email: string; display_name: string | null; created_at: string; roles: string[]; subscription: { status: string; subscription_plans: { name: string; tier: string } | null } | null }> | undefined) ?? [];
+  const rows = ((data as unknown) as Array<{ id: string; email: string; display_name: string | null; created_at: string; roles: string[] }> | undefined) ?? [];
   const mutGrant = useMutation({ mutationFn: (v: { userId: string; role: string }) => grant({ data: v } as never), onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-users"] }) });
   const mutRevoke = useMutation({ mutationFn: (v: { userId: string; role: string }) => revoke({ data: v } as never), onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-users"] }) });
 
@@ -30,12 +30,11 @@ function UsersAdmin() {
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by email…" className="mb-4 max-w-sm w-full rounded-md border border-border bg-card px-3 py-2 text-sm" />
       <div className="rounded-lg border border-border bg-card overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-secondary/40 text-xs uppercase text-muted-foreground"><tr><th className="text-left px-4 py-2">User</th><th className="text-left px-4 py-2">Subscription</th><th className="text-left px-4 py-2">Roles</th><th className="text-left px-4 py-2">Grant</th></tr></thead>
+          <thead className="bg-secondary/40 text-xs uppercase text-muted-foreground"><tr><th className="text-left px-4 py-2">User</th><th className="text-left px-4 py-2">Roles</th><th className="text-left px-4 py-2">Grant</th></tr></thead>
           <tbody>
             {rows.map((u) => (
               <tr key={u.id} className="border-t border-border align-top">
                 <td className="px-4 py-3"><div className="font-medium">{u.display_name ?? "—"}</div><div className="text-xs text-muted-foreground">{u.email}</div></td>
-                <td className="px-4 py-3 text-xs">{u.subscription ? <><div>{u.subscription.subscription_plans?.name ?? u.subscription.subscription_plans?.tier}</div><div className="text-muted-foreground">{u.subscription.status}</div></> : <span className="text-muted-foreground">none</span>}</td>
                 <td className="px-4 py-3"><div className="flex flex-wrap gap-1">{u.roles.length === 0 && <span className="text-xs text-muted-foreground">user</span>}{u.roles.map((r) => (
                   <span key={r} className="inline-flex items-center gap-1 text-xs bg-primary/15 text-primary px-2 py-0.5 rounded-full">{r}<button onClick={() => mutRevoke.mutate({ userId: u.id, role: r })}><X className="h-3 w-3" /></button></span>
                 ))}</div></td>
