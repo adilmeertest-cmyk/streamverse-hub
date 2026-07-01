@@ -21,7 +21,6 @@ export function Footer() {
         <div>
           <div className="font-semibold text-foreground mb-2">Account</div>
           <ul className="space-y-1">
-            <li><Link to="/pricing">Plans &amp; pricing</Link></li>
             <li><Link to="/account">My account</Link></li>
             <li><Link to="/watchlist">My list</Link></li>
             <li><Link to="/auth">Sign in</Link></li>
