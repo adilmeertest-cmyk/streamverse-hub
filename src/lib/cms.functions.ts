@@ -376,18 +376,14 @@ export const listUsersAdmin = createServerFn({ method: "GET" }).middleware([requ
   .handler(async ({ data, context }) => {
     await requireRole(context.supabase as never, context.userId, ["super_admin", "support_agent", "finance_manager"]);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    let q = supabaseAdmin.from("profiles").select("id,email,display_name,created_at,stripe_customer_id").order("created_at", { ascending: false }).limit(100);
+    let q = supabaseAdmin.from("profiles").select("id,email,display_name,created_at").order("created_at", { ascending: false }).limit(100);
     if (data.q) q = q.ilike("email", `%${data.q}%`);
     const { data: profiles } = await q;
     const ids = (profiles ?? []).map((p) => p.id);
-    const [{ data: roles }, { data: subs }] = await Promise.all([
-      supabaseAdmin.from("user_roles").select("user_id,role").in("user_id", ids),
-      supabaseAdmin.from("subscriptions").select("user_id,status,plan_id, subscription_plans(name,tier)").in("user_id", ids),
-    ]);
+    const { data: roles } = await supabaseAdmin.from("user_roles").select("user_id,role").in("user_id", ids);
     return (profiles ?? []).map((p) => ({
       ...p,
       roles: (roles ?? []).filter((r) => r.user_id === p.id).map((r) => r.role),
-      subscription: (subs ?? []).find((s) => s.user_id === p.id) ?? null,
     }));
   });
 
@@ -413,14 +409,7 @@ export const revokeRole = createServerFn({ method: "POST" }).middleware([require
     return { ok: true };
   });
 
-/* ---------------- Plans (read only) & Audit log ---------------- */
-export const listPlansAdmin = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
-  await requireRole(context.supabase as never, context.userId, ["super_admin", "finance_manager", "analytics_manager"]);
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data } = await supabaseAdmin.from("subscription_plans").select("*").order("price_cents");
-  return data ?? [];
-});
-
+/* ---------------- Audit log ---------------- */
 export const listAuditLog = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
   await requireRole(context.supabase as never, context.userId, ["super_admin", "analytics_manager"]);
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

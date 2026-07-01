@@ -34,7 +34,6 @@ function WatchPage() {
   const [status, setStatus] = useState<
     | { kind: "loading" }
     | { kind: "signin" }
-    | { kind: "subscribe" }
     | { kind: "unavailable" }
     | { kind: "ready"; url: string; poster: string | null }
   >({ kind: "loading" });
@@ -49,8 +48,6 @@ function WatchPage() {
         const res = await fetchUrl({ data: { titleId: t.id } });
         if (res.ok) {
           setStatus({ kind: "ready", url: res.url, poster: res.poster });
-        } else if (res.reason === "subscribe") {
-          setStatus({ kind: "subscribe" });
         } else {
           setStatus({ kind: "unavailable" });
         }
@@ -75,15 +72,14 @@ function WatchPage() {
     );
   }
 
-  if (status.kind === "signin" || status.kind === "subscribe") {
+  if (status.kind === "signin") {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-8 text-center">
         <div className="max-w-md">
-          <div className="text-2xl font-bold">{status.kind === "signin" ? "Sign in to watch" : "Premium title"}</div>
-          <p className="mt-2 text-white/70">{status.kind === "signin" ? "Sign in to your account" : "Upgrade to Premium or Family"} to watch <strong>{t.title}</strong>.</p>
+          <div className="text-2xl font-bold">Sign in to watch</div>
+          <p className="mt-2 text-white/70">Sign in to your account to watch <strong>{t.title}</strong>.</p>
           <div className="mt-4 flex justify-center gap-3">
-            {status.kind === "signin" && <Link to="/auth" className="rounded-md bg-primary px-4 py-2 font-semibold">Sign in</Link>}
-            <Link to="/pricing" className="rounded-md bg-primary px-4 py-2 font-semibold">See plans</Link>
+            <Link to="/auth" className="rounded-md bg-primary px-4 py-2 font-semibold">Sign in</Link>
           </div>
         </div>
       </div>

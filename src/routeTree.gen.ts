@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as DownloadRouteImport } from './routes/download'
 import { Route as BrowseRouteImport } from './routes/browse'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -32,7 +31,6 @@ import { Route as AuthenticatedWatchlistRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as ApiIngestTrendingMoviesRouteImport } from './routes/api/ingest/trending-movies'
 import { Route as ApiIngestPopularTvRouteImport } from './routes/api/ingest/popular-tv'
 import { Route as ApiIngestPopularMoviesRouteImport } from './routes/api/ingest/popular-movies'
@@ -41,7 +39,6 @@ import { Route as AuthenticatedAdminTitlesRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminTaxonomyRouteImport } from './routes/_authenticated/admin/taxonomy'
 import { Route as AuthenticatedAdminSyncRouteImport } from './routes/_authenticated/admin/sync'
 import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin/reviews'
-import { Route as AuthenticatedAdminPlansRouteImport } from './routes/_authenticated/admin/plans'
 import { Route as AuthenticatedAdminDownloadsRouteImport } from './routes/_authenticated/admin/downloads'
 import { Route as AuthenticatedAdminContentIngestionRouteImport } from './routes/_authenticated/admin/content-ingestion'
 import { Route as AuthenticatedAdminBannersRouteImport } from './routes/_authenticated/admin/banners'
@@ -59,11 +56,6 @@ const SearchRoute = SearchRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DownloadRoute = DownloadRouteImport.update({
@@ -165,11 +157,6 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
-  id: '/api/public/stripe-webhook',
-  path: '/api/public/stripe-webhook',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiIngestTrendingMoviesRoute = ApiIngestTrendingMoviesRouteImport.update({
   id: '/api/ingest/trending-movies',
   path: '/api/ingest/trending-movies',
@@ -213,11 +200,6 @@ const AuthenticatedAdminReviewsRoute =
     path: '/reviews',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const AuthenticatedAdminPlansRoute = AuthenticatedAdminPlansRouteImport.update({
-  id: '/plans',
-  path: '/plans',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
-} as any)
 const AuthenticatedAdminDownloadsRoute =
   AuthenticatedAdminDownloadsRouteImport.update({
     id: '/downloads',
@@ -270,7 +252,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/browse': typeof BrowseRouteWithChildren
   '/download': typeof DownloadRoute
-  '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
@@ -290,7 +271,6 @@ export interface FileRoutesByFullPath {
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
   '/admin/content-ingestion': typeof AuthenticatedAdminContentIngestionRoute
   '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
-  '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
   '/admin/taxonomy': typeof AuthenticatedAdminTaxonomyRoute
@@ -299,7 +279,6 @@ export interface FileRoutesByFullPath {
   '/api/ingest/popular-movies': typeof ApiIngestPopularMoviesRoute
   '/api/ingest/popular-tv': typeof ApiIngestPopularTvRoute
   '/api/ingest/trending-movies': typeof ApiIngestTrendingMoviesRoute
-  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/apps/$id': typeof AuthenticatedAdminAppsIdRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
@@ -311,7 +290,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRouteWithChildren
   '/browse': typeof BrowseRouteWithChildren
   '/download': typeof DownloadRoute
-  '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/account': typeof AuthenticatedAccountRoute
@@ -331,7 +309,6 @@ export interface FileRoutesByTo {
   '/admin/banners': typeof AuthenticatedAdminBannersRoute
   '/admin/content-ingestion': typeof AuthenticatedAdminContentIngestionRoute
   '/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
-  '/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/sync': typeof AuthenticatedAdminSyncRoute
   '/admin/taxonomy': typeof AuthenticatedAdminTaxonomyRoute
@@ -340,7 +317,6 @@ export interface FileRoutesByTo {
   '/api/ingest/popular-movies': typeof ApiIngestPopularMoviesRoute
   '/api/ingest/popular-tv': typeof ApiIngestPopularTvRoute
   '/api/ingest/trending-movies': typeof ApiIngestTrendingMoviesRoute
-  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/apps/$id': typeof AuthenticatedAdminAppsIdRoute
   '/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
   '/api/public/download/$id': typeof ApiPublicDownloadIdRoute
@@ -353,7 +329,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/browse': typeof BrowseRouteWithChildren
   '/download': typeof DownloadRoute
-  '/pricing': typeof PricingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
@@ -374,7 +349,6 @@ export interface FileRoutesById {
   '/_authenticated/admin/banners': typeof AuthenticatedAdminBannersRoute
   '/_authenticated/admin/content-ingestion': typeof AuthenticatedAdminContentIngestionRoute
   '/_authenticated/admin/downloads': typeof AuthenticatedAdminDownloadsRoute
-  '/_authenticated/admin/plans': typeof AuthenticatedAdminPlansRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/admin/sync': typeof AuthenticatedAdminSyncRoute
   '/_authenticated/admin/taxonomy': typeof AuthenticatedAdminTaxonomyRoute
@@ -383,7 +357,6 @@ export interface FileRoutesById {
   '/api/ingest/popular-movies': typeof ApiIngestPopularMoviesRoute
   '/api/ingest/popular-tv': typeof ApiIngestPopularTvRoute
   '/api/ingest/trending-movies': typeof ApiIngestTrendingMoviesRoute
-  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/apps/$id': typeof AuthenticatedAdminAppsIdRoute
   '/_authenticated/admin/titles/$id': typeof AuthenticatedAdminTitlesIdRoute
@@ -397,7 +370,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/browse'
     | '/download'
-    | '/pricing'
     | '/reset-password'
     | '/search'
     | '/account'
@@ -417,7 +389,6 @@ export interface FileRouteTypes {
     | '/admin/banners'
     | '/admin/content-ingestion'
     | '/admin/downloads'
-    | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
     | '/admin/taxonomy'
@@ -426,7 +397,6 @@ export interface FileRouteTypes {
     | '/api/ingest/popular-movies'
     | '/api/ingest/popular-tv'
     | '/api/ingest/trending-movies'
-    | '/api/public/stripe-webhook'
     | '/admin/'
     | '/admin/apps/$id'
     | '/admin/titles/$id'
@@ -438,7 +408,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/browse'
     | '/download'
-    | '/pricing'
     | '/reset-password'
     | '/search'
     | '/account'
@@ -458,7 +427,6 @@ export interface FileRouteTypes {
     | '/admin/banners'
     | '/admin/content-ingestion'
     | '/admin/downloads'
-    | '/admin/plans'
     | '/admin/reviews'
     | '/admin/sync'
     | '/admin/taxonomy'
@@ -467,7 +435,6 @@ export interface FileRouteTypes {
     | '/api/ingest/popular-movies'
     | '/api/ingest/popular-tv'
     | '/api/ingest/trending-movies'
-    | '/api/public/stripe-webhook'
     | '/admin/apps/$id'
     | '/admin/titles/$id'
     | '/api/public/download/$id'
@@ -479,7 +446,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/browse'
     | '/download'
-    | '/pricing'
     | '/reset-password'
     | '/search'
     | '/_authenticated/admin'
@@ -500,7 +466,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/banners'
     | '/_authenticated/admin/content-ingestion'
     | '/_authenticated/admin/downloads'
-    | '/_authenticated/admin/plans'
     | '/_authenticated/admin/reviews'
     | '/_authenticated/admin/sync'
     | '/_authenticated/admin/taxonomy'
@@ -509,7 +474,6 @@ export interface FileRouteTypes {
     | '/api/ingest/popular-movies'
     | '/api/ingest/popular-tv'
     | '/api/ingest/trending-movies'
-    | '/api/public/stripe-webhook'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/apps/$id'
     | '/_authenticated/admin/titles/$id'
@@ -523,7 +487,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   BrowseRoute: typeof BrowseRouteWithChildren
   DownloadRoute: typeof DownloadRoute
-  PricingRoute: typeof PricingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SearchRoute: typeof SearchRoute
   AppsSlugRoute: typeof AppsSlugRoute
@@ -532,7 +495,6 @@ export interface RootRouteChildren {
   ApiIngestPopularMoviesRoute: typeof ApiIngestPopularMoviesRoute
   ApiIngestPopularTvRoute: typeof ApiIngestPopularTvRoute
   ApiIngestTrendingMoviesRoute: typeof ApiIngestTrendingMoviesRoute
-  ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
   ApiPublicDownloadIdRoute: typeof ApiPublicDownloadIdRoute
 }
 
@@ -550,13 +512,6 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/download': {
@@ -699,13 +654,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/api/public/stripe-webhook': {
-      id: '/api/public/stripe-webhook'
-      path: '/api/public/stripe-webhook'
-      fullPath: '/api/public/stripe-webhook'
-      preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/ingest/trending-movies': {
       id: '/api/ingest/trending-movies'
       path: '/api/ingest/trending-movies'
@@ -760,13 +708,6 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/admin/reviews'
       preLoaderRoute: typeof AuthenticatedAdminReviewsRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/plans': {
-      id: '/_authenticated/admin/plans'
-      path: '/plans'
-      fullPath: '/admin/plans'
-      preLoaderRoute: typeof AuthenticatedAdminPlansRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/downloads': {
@@ -862,7 +803,6 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminBannersRoute: typeof AuthenticatedAdminBannersRoute
   AuthenticatedAdminContentIngestionRoute: typeof AuthenticatedAdminContentIngestionRoute
   AuthenticatedAdminDownloadsRoute: typeof AuthenticatedAdminDownloadsRoute
-  AuthenticatedAdminPlansRoute: typeof AuthenticatedAdminPlansRoute
   AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
   AuthenticatedAdminSyncRoute: typeof AuthenticatedAdminSyncRoute
   AuthenticatedAdminTaxonomyRoute: typeof AuthenticatedAdminTaxonomyRoute
@@ -879,7 +819,6 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminContentIngestionRoute:
       AuthenticatedAdminContentIngestionRoute,
     AuthenticatedAdminDownloadsRoute: AuthenticatedAdminDownloadsRoute,
-    AuthenticatedAdminPlansRoute: AuthenticatedAdminPlansRoute,
     AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
     AuthenticatedAdminSyncRoute: AuthenticatedAdminSyncRoute,
     AuthenticatedAdminTaxonomyRoute: AuthenticatedAdminTaxonomyRoute,
@@ -946,7 +885,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   BrowseRoute: BrowseRouteWithChildren,
   DownloadRoute: DownloadRoute,
-  PricingRoute: PricingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SearchRoute: SearchRoute,
   AppsSlugRoute: AppsSlugRoute,
@@ -955,19 +893,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIngestPopularMoviesRoute: ApiIngestPopularMoviesRoute,
   ApiIngestPopularTvRoute: ApiIngestPopularTvRoute,
   ApiIngestTrendingMoviesRoute: ApiIngestTrendingMoviesRoute,
-  ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
   ApiPublicDownloadIdRoute: ApiPublicDownloadIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
