@@ -9,7 +9,11 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "cap:sync": "vite build && cap copy android && cap sync android",
+    "cap:open": "cap open android",
+    "electron": "electron .",
+    "electron:pack": "vite build && electron-packager . StreamFlix --overwrite --out=electron-release --ignore=^/src --ignore=^/public --ignore=^/electron-release --ignore=^/android"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -93,5 +97,6 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.16"
-  }
+  },
+  "main": "electron/main.cjs"
 }
